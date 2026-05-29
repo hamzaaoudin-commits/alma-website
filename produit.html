@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Produit — ALMA</title>
+<meta name="description" content="Le produit ALMA : une expérience structurée autour d'un rituel quotidien, une conversation programmée, et une sortie vers le réel.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/pages.css">
+
+<style>
+/* ============ GALLERY ============ */
+.gallery-intro {
+  text-align: center;
+  padding: 5rem 2rem 3rem;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem 5rem;
+}
+
+.gallery-item {
+  background: var(--ink);
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: var(--transition-base);
+  position: relative;
+  aspect-ratio: 9/16;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-item iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  pointer-events: none;
+  transform: scale(0.95);
+  transform-origin: top left;
+  width: 105.26%;
+  height: 105.26%;
+}
+
+.gallery-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(26, 24, 20, 0.95), transparent);
+  color: var(--cream);
+  padding: 2rem 1.5rem 1.25rem;
+  pointer-events: none;
+}
+
+.gallery-num {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.gallery-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+/* ============ LIGHTBOX ============ */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 24, 20, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.lightbox.open {
+  display: flex;
+  animation: fadeInUp 0.3s ease;
+}
+
+.lightbox-content {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+  max-height: 90vh;
+  background: var(--ink);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+.lightbox-content iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  background: rgba(244, 239, 230, 0.1);
+  border: 1px solid rgba(244, 239, 230, 0.2);
+  border-radius: 50%;
+  color: var(--cream);
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  transition: var(--transition-base);
+}
+
+.lightbox-close:hover {
+  background: rgba(244, 239, 230, 0.2);
+  transform: rotate(90deg);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: rgba(244, 239, 230, 0.1);
+  border: 1px solid rgba(244, 239, 230, 0.2);
+  border-radius: 50%;
+  color: var(--cream);
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  transition: var(--transition-base);
+}
+
+.lightbox-nav:hover {
+  background: rgba(244, 239, 230, 0.2);
+}
+
+.lightbox-prev {
+  left: 2rem;
+}
+
+.lightbox-next {
+  right: 2rem;
+}
+
+.lightbox-counter {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  z-index: 1001;
+  background: rgba(244, 239, 230, 0.1);
+  padding: 0.6rem 1.2rem;
+  border-radius: 100px;
+  border: 1px solid rgba(244, 239, 230, 0.15);
+}
+
+/* ============ PROTOTYPE CTA ============ */
+.prototype-cta {
+  background: var(--ink);
+  padding: 5rem 2rem;
+  text-align: center;
+  color: var(--cream);
+}
+
+.prototype-cta-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.prototype-cta-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+
+.prototype-cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: var(--cream);
+}
+
+.prototype-cta-title em {
+  font-family: var(--font-italic);
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.prototype-cta-text {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--cream);
+  opacity: 0.85;
+  margin-bottom: 2.5rem;
+}
+
+.prototype-cta-button {
+  display: inline-block;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  padding: 1.3rem 3rem;
+  font-weight: 600;
+  transition: var(--transition-base);
+  border: 1px solid var(--cream);
+}
+
+.prototype-cta-button:hover {
+  background: var(--gold);
+  color: var(--cream);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 968px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1.5rem 3rem;
+  }
+
+  .lightbox-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .lightbox-prev { left: 0.5rem; }
+  .lightbox-next { right: 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo">ALMA</a>
+  <div class="nav-links">
+    <a href="/manifeste.html" class="nav-link">Manifeste</a>
+    <a href="/vision.html" class="nav-link">Vision</a>
+    <a href="/produit.html" class="nav-link active">Produit</a>
+    <a href="/fondateur.html" class="nav-link">Fondateur</a>
+    <a href="/presse.html" class="nav-link">Presse</a>
+    <a href="/investisseurs.html" class="nav-link">Investisseurs</a>
+    <a href="/#waitlist" class="nav-cta">Rejoindre</a>
+  </div>
+  <button class="nav-mobile-toggle" id="nav-mobile-toggle" aria-label="Menu">☰</button>
+</nav>
+
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <span class="nav-mobile-close" id="nav-mobile-close">×</span>
+  <a href="/manifeste.html" class="nav-link">Manifeste</a>
+  <a href="/vision.html" class="nav-link">Vision</a>
+  <a href="/produit.html" class="nav-link">Produit</a>
+  <a href="/fondateur.html" class="nav-link">Fondateur</a>
+  <a href="/presse.html" class="nav-link">Presse</a>
+  <a href="/investisseurs.html" class="nav-link">Investisseurs</a>
+  <a href="/#waitlist" class="nav-cta">Rejoindre</a>
+</div>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-eyebrow eyebrow">— L'expérience ALMA —</div>
+    <h1 class="page-hero-title">
+      Le produit. <span class="italic">Pensé pour la rencontre</span>, pas pour la captivité.
+    </h1>
+    <p class="page-hero-subtitle">
+      Cinq étapes simples qui transforment une rencontre numérique en lien réel. Et qui vous laissent partir dès que vous avez trouvé.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="text-block" style="padding: 0 2rem 4rem;">
+      <h2>Le parcours utilisateur</h2>
+      <p class="lead">
+        Voici comment se déroule une journée dans ALMA, du moment où vous vous inscrivez jusqu'à la rencontre dans la vraie vie.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card observe">
+        <div class="feature-num">01</div>
+        <h3 class="feature-title">Inscription &amp; vérification</h3>
+        <p class="feature-text">
+          Vous téléchargez l'application, vous créez votre profil, et vous validez votre identité avec une pièce officielle. Validation sous 24 heures. Documents supprimés ensuite, seul un hash anonyme est conservé pour empêcher les recréations de comptes bannis.
+        </p>
+      </div>
+
+      <div class="feature-card observe">
+        <div class="feature-num">02</div>
+        <h3 class="feature-title">Questionnaire de valeurs</h3>
+        <p class="feature-text">
+          Vous répondez à 30 questions qui explorent ce qui compte vraiment pour vous : rapport à la famille, au travail, à la spiritualité, aux enfants, à la liberté. Ces réponses nourrissent l'algorithme pour vous proposer des personnes avec qui une vraie compatibilité de fond est possible.
+        </p>
+      </div>
+
+      <div class="feature-card observe">
+        <div class="feature-num">03</div>
+        <h3 class="feature-title">Le rituel quotidien</h3>
+        <p class="feature-text">
+          Chaque jour, à l'heure que vous choisissez (entre 18h et 22h), vous recevez 3 profils sélectionnés pour vous. Ni plus, ni moins. Vous avez 24 heures pour décider d'engager une conversation. Si vous laissez passer, ces profils ne reviendront plus.
+        </p>
+      </div>
+
+      <div class="feature-card observe">
+        <div class="feature-num">04</div>
+        <h3 class="feature-title">La conversation programmée</h3>
+        <p class="feature-text">
+          Quand deux personnes acceptent de se parler, elles programment ensemble un créneau de 30 minutes. Pas de fil ouvert. Un moment dédié. Une IA veille en temps réel pour détecter les comportements problématiques sans jamais surveiller le contenu intime.
+        </p>
+      </div>
+
+      <div class="feature-card observe">
+        <div class="feature-num">05</div>
+        <h3 class="feature-title">L'appel &amp; la rencontre réelle</h3>
+        <p class="feature-text">
+          Si la conversation marche, ALMA programme un appel vidéo de 20 minutes le lendemain. Et si l'appel marche, vous pouvez réserver un Pack Rencontre à 19€ dans l'un de nos cafés ou restaurants partenaires parisiens, formés pour veiller discrètement sur votre sécurité.
+        </p>
+      </div>
+
+      <div class="feature-card observe">
+        <div class="feature-num">06</div>
+        <h3 class="feature-title">Le mode pause couple</h3>
+        <p class="feature-text">
+          Le jour où vous vous mettez en couple, vous activez ensemble un "mode pause" : vos comptes sont gelés pendant 3 à 12 mois, sans paiement. Si la relation tient, c'est notre fierté. Si elle ne tient pas, vous reprenez là où vous vous étiez arrêtés.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALERIE INTÉGRÉE ============ -->
+<section class="section section-cream" id="gallery">
+  <div class="gallery-intro">
+    <div class="eyebrow">— Aperçu de l'application —</div>
+    <h2 class="title-section mt-4">
+      18 écrans <span class="italic">pensés au millimètre.</span>
+    </h2>
+    <div class="divider-line"></div>
+    <p class="body-text mt-6" style="max-width: 700px; margin-left: auto; margin-right: auto;">
+      Chaque écran a été conçu pour servir l'attention plutôt que la capturer. Cliquez pour explorer en détail.
+    </p>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="gallery-item" data-screen="1">
+      <iframe src="/assets/alma-maquettes.html#ecran-1" loading="lazy"></iframe>
+      <div class="gallery-label">
+        <div class="gallery-num">— 01 —</div>
+        <div class="gallery-title">Accueil &amp; inscription</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-screen="2">
+      <iframe src="/assets/alma-maquettes.html#ecran-2" loading="lazy"></iframe>
+      <div class="gallery-label">
+        <div class="gallery-num">— 02 —</div>
+        <div class="gallery-title">Vérification d'identité</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-screen="3">
+      <iframe src="/assets/alma-maquettes.html#ecran-3" loading="lazy"></iframe>
+      <div class="gallery-label">
+        <div class="gallery-num">— 03 —</div>
+        <div class="gallery-title">Questionnaire de valeurs</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-screen="4">
+      <iframe src="/assets/alma-maquettes.html#ecran-4" loading="lazy"></iframe>
+      <div class="gallery-label">
+        <div class="gallery-num">— 04 —</div>
+        <div class="gallery-title">Cycle quotidien</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-screen="5">
+      <iframe src="/assets/alma-maquettes.html#ecran-5" loading="lazy"></iframe>
+      <div class="gallery-label">
+        <div class="gallery-num">— 05 —</div>
+        <div class="gallery-title">Profil détaillé</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-screen="6">
+      <iframe src="/assets/alma-maquettes.html#ecran-6" loading="lazy"></iframe>
+      <div class="gallery-label">
+        <div class="gallery-num">— 06 —</div>
+        <div class="gallery-title">Programmation conversation</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-screen="7">
+      <iframe src="/assets/alma-maquettes.html#ecran-7" loading="lazy"></iframe>
+      <div class="gallery-label">
+        <div class="gallery-num">— 07 —</div>
+        <div class="gallery-title">Conversation 30 minutes</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-screen="8">
+      <iframe src="/assets/alma-maquettes.html#ecran-8" loading="lazy"></iframe>
+      <div class="gallery-label">
+        <div class="gallery-num">— 08 —</div>
+        <div class="gallery-title">Alerte IA modération</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-screen="9">
+      <iframe src="/assets/alma-maquettes.html#ecran-9" loading="lazy"></iframe>
+      <div class="gallery-label">
+        <div class="gallery-num">— 09 —</div>
+        <div class="gallery-title">Clôture de conversation</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-screen="10">
+      <iframe src="/assets/alma-maquettes.html#ecran-10" loading="lazy"></iframe>
+      <div class="gallery-label">
+        <div class="gallery-num">— 10 —</div>
+        <div class="gallery-title">Appel vidéo</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-screen="11">
+      <iframe src="/assets/alma-maquettes.html#ecran-11" loading="lazy"></iframe>
+      <div class="gallery-label">
+        <div class="gallery-num">— 11 —</div>
+        <div class="gallery-title">Pack Rencontre</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-screen="12">
+      <iframe src="/assets/alma-maquettes.html#ecran-12" loading="lazy"></iframe>
+      <div class="gallery-label">
+        <div class="gallery-num">— 12 —</div>
+        <div class="gallery-title">Bouton SOS</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-screen="13">
+      <iframe src="/assets/alma-maquettes.html#ecran-13" loading="lazy"></iframe>
+      <div class="gallery-label">
+        <div class="gallery-num">— 13 —</div>
+        <div class="gallery-title">Post-rencontre</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-screen="14">
+      <iframe src="/assets/alma-maquettes.html#ecran-14" loading="lazy"></iframe>
+      <div class="gallery-label">
+        <div class="gallery-num">— 14 —</div>
+        <div class="gallery-title">Mode pause couple</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-screen="15">
+      <iframe src="/assets/alma-maquettes.html#ecran-15" loading="lazy"></iframe>
+      <div class="gallery-label">
+        <div class="gallery-num">— 15 —</div>
+        <div class="gallery-title">Profil personnel</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align: center; padding: 0 2rem 5rem;">
+    <a href="/assets/alma-maquettes.html" target="_blank" class="btn-ghost">Voir les 18 écrans en plein écran</a>
+  </div>
+</section>
+
+<!-- ============ PROTOTYPE CTA ============ -->
+<section class="prototype-cta">
+  <div class="prototype-cta-inner">
+    <div class="prototype-cta-eyebrow">— Prototype interactif —</div>
+    <h2 class="prototype-cta-title">
+      Essayez ALMA <em>avant son lancement.</em>
+    </h2>
+    <p class="prototype-cta-text">
+      Un prototype web entièrement fonctionnel qui vous laisse parcourir l'application comme si elle était installée sur votre téléphone. Conversation simulée, détection IA, parcours complet. Quelques minutes suffisent.
+    </p>
+    <a href="/prototype.html" class="prototype-cta-button">Lancer le prototype →</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container text-center">
+    <div class="eyebrow">— Présentation animée —</div>
+    <h2 class="title-section mt-4">
+      Découvrir ALMA <span class="italic">en deux minutes.</span>
+    </h2>
+    <div class="divider-line"></div>
+
+    <p class="body-text mt-6" style="max-width: 600px; margin-left: auto; margin-right: auto;">
+      Une présentation visuelle qui résume la promesse d'ALMA, le constat, et la solution. À regarder en plein écran.
+    </p>
+
+    <div class="mt-8">
+      <a href="/assets/alma-presentation.html" class="btn-primary" target="_blank">Lancer la présentation</a>
+    </div>
+  </div>
+</section>
+
+<div class="contact-block">
+  <h3>Envie d'être parmi les premiers à tester ?</h3>
+  <p>Inscrivez-vous sur la liste d'attente. Les premiers utilisateurs auront accès à l'application en exclusivité, avec 12 mois d'abonnement offerts.</p>
+  <a href="/#waitlist" class="btn-primary">Rejoindre la liste d'attente</a>
+</div>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Fermer">×</button>
+  <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Précédent">‹</button>
+  <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Suivant">›</button>
+  <div class="lightbox-content">
+    <iframe id="lightbox-iframe" src=""></iframe>
+  </div>
+  <div class="lightbox-counter" id="lightbox-counter">1 / 15</div>
+</div>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div>
+      <div class="footer-brand-mark">ALMA</div>
+      <div class="footer-brand-tag">Quelqu'un, pas quelque chose.</div>
+      <p class="footer-brand-text">
+        L'application de rencontre qui rend les gens à la vie réelle. Lancement Paris 2026.
+      </p>
+    </div>
+    <div>
+      <h4 class="footer-section-title">Découvrir</h4>
+      <div class="footer-links">
+        <a href="/manifeste.html" class="footer-link">Manifeste</a>
+        <a href="/vision.html" class="footer-link">Vision</a>
+        <a href="/produit.html" class="footer-link">Produit</a>
+        <a href="/fondateur.html" class="footer-link">Fondateur</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="footer-section-title">Contact</h4>
+      <div class="footer-links">
+        <a href="/presse.html" class="footer-link">Presse</a>
+        <a href="/investisseurs.html" class="footer-link">Investisseurs</a>
+        <a href="mailto:hello@alma.app" class="footer-link">hello@alma.app</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="footer-section-title">Suivre</h4>
+      <div class="footer-links">
+        <a href="#" class="footer-link">LinkedIn</a>
+        <a href="#" class="footer-link">Instagram</a>
+        <a href="#" class="footer-link">Newsletter</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-credit">© 2026 ALMA — Tous droits réservés</div>
+    <div class="footer-tagline">— Quelqu'un, pas quelque chose. —</div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script>
+// Lightbox pour la galerie
+(function() {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxIframe = document.getElementById('lightbox-iframe');
+  const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxPrev = document.getElementById('lightbox-prev');
+  const lightboxNext = document.getElementById('lightbox-next');
+  const lightboxCounter = document.getElementById('lightbox-counter');
+  const items = document.querySelectorAll('.gallery-item');
+  const totalScreens = items.length;
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    const screenNum = items[index].getAttribute('data-screen');
+    lightboxIframe.src = `/assets/alma-maquettes.html#ecran-${screenNum}`;
+    lightboxCounter.textContent = `${index + 1} / ${totalScreens}`;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightboxIframe.src = '';
+    document.body.style.overflow = '';
+  }
+
+  function nextScreen() {
+    openLightbox((currentIndex + 1) % totalScreens);
+  }
+
+  function prevScreen() {
+    openLightbox((currentIndex - 1 + totalScreens) % totalScreens);
+  }
+
+  items.forEach((item, index) => {
+    item.addEventListener('click', () => openLightbox(index));
+  });
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightboxPrev.addEventListener('click', prevScreen);
+  lightboxNext.addEventListener('click', nextScreen);
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') nextScreen();
+    if (e.key === 'ArrowLeft') prevScreen();
+  });
+})();
+</script>
+
+</body>
+</html>
