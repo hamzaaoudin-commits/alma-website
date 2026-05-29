@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>ALMA — Maquettes complètes de l'application</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
 <style>
 :root {
   --cream: #F4EFE6;
@@ -1608,74 +1608,90 @@ body {
 </head>
 
 <style>
-/* Override pour affichage isolé d'une seule section */
-body {
+/* === ISOLATION DU TÉLÉPHONE === */
+html, body {
   margin: 0 !important;
   padding: 0 !important;
+  height: 100vh !important;
+  width: 100vw !important;
   overflow: hidden !important;
   background: var(--cream, #F4EFE6) !important;
 }
-.intro, .section-header, footer, nav, .nav { display: none !important; }
-.section {
-  min-height: auto !important;
-  padding: 1rem !important;
-  margin: 0 !important;
+
+body {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
-.section > * {
-  margin-top: 0 !important;
+
+.isolated-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
 }
-html, body {
-  height: 100% !important;
-  width: 100% !important;
+
+/* Le téléphone à sa taille native */
+.phone {
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+}
+
+/* Pour les sections split-screen, on réduit pour faire tenir les 2 téléphones */
+.isolated-wrapper.multi .phone {
+  transform: scale(0.62);
+  transform-origin: center center;
+  margin: -130px 0 !important;
 }
 </style>
 
 <body>
-<section class="section" id="section-17">
-  
-          <div class="screen-content">
-            <div class="own-profile-photo"></div>
-            <div class="own-name">Marie Lavergne</div>
-            <div class="own-meta">32 ans · Paris 11e</div>
-            <div style="text-align:center;">
-              <div class="verified-badge">Identité vérifiée</div>
-            </div>
-
-            <div class="settings-list">
-              <div class="settings-item">
-                <div class="settings-label">Créneau quotidien</div>
-                <div class="settings-value">19:00</div>
-              </div>
-              <div class="settings-item">
-                <div class="settings-label">Préférences physiques</div>
-                <div class="settings-value">Modifier</div>
-              </div>
-              <div class="settings-item">
-                <div class="settings-label">Mes trois réponses</div>
-                <div class="settings-value">Modifier</div>
-              </div>
-              <div class="settings-item">
-                <div class="settings-label">Abonnement</div>
-                <div class="settings-value">Annuel · 9,90€/mois</div>
-              </div>
-              <div class="settings-item">
-                <div class="settings-label">Contact d'urgence</div>
-                <div class="settings-value">Configuré</div>
-              </div>
-              <div class="settings-item">
-                <div class="settings-label">Charte d'engagement</div>
-                <div class="settings-value">Signée</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="mockup-label">Profil personnel · <strong>Zéro métrique sociale</strong></div>
-    </div>
-  </div>
-</section>
+<div class="isolated-wrapper">
+<div class="phone">
+<div class="screen">
+<div class="status-bar"><span>9:41</span><span class="status-right">●●● ●</span></div>
+<div class="app-header">
+<div class="app-logo">ALMA</div>
+<div class="app-menu-btn"><span></span><span></span></div>
+</div>
+<div class="screen-content">
+<div class="own-profile-photo"></div>
+<div class="own-name">Marie Lavergne</div>
+<div class="own-meta">32 ans · Paris 11e</div>
+<div style="text-align:center;">
+<div class="verified-badge">Identité vérifiée</div>
+</div>
+<div class="settings-list">
+<div class="settings-item">
+<div class="settings-label">Créneau quotidien</div>
+<div class="settings-value">19:00</div>
+</div>
+<div class="settings-item">
+<div class="settings-label">Préférences physiques</div>
+<div class="settings-value">Modifier</div>
+</div>
+<div class="settings-item">
+<div class="settings-label">Mes trois réponses</div>
+<div class="settings-value">Modifier</div>
+</div>
+<div class="settings-item">
+<div class="settings-label">Abonnement</div>
+<div class="settings-value">Annuel · 9,90€/mois</div>
+</div>
+<div class="settings-item">
+<div class="settings-label">Contact d'urgence</div>
+<div class="settings-value">Configuré</div>
+</div>
+<div class="settings-item">
+<div class="settings-label">Charte d'engagement</div>
+<div class="settings-value">Signée</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>

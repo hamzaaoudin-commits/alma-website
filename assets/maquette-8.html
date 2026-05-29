@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>ALMA — Maquettes complètes de l'application</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
 <style>
 :root {
   --cream: #F4EFE6;
@@ -1608,100 +1608,109 @@ body {
 </head>
 
 <style>
-/* Override pour affichage isolé d'une seule section */
-body {
+/* === ISOLATION DU TÉLÉPHONE === */
+html, body {
   margin: 0 !important;
   padding: 0 !important;
+  height: 100vh !important;
+  width: 100vw !important;
   overflow: hidden !important;
   background: var(--cream, #F4EFE6) !important;
 }
-.intro, .section-header, footer, nav, .nav { display: none !important; }
-.section {
-  min-height: auto !important;
-  padding: 1rem !important;
-  margin: 0 !important;
+
+body {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
-.section > * {
-  margin-top: 0 !important;
+
+.isolated-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
 }
-html, body {
-  height: 100% !important;
-  width: 100% !important;
+
+/* Le téléphone à sa taille native */
+.phone {
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+}
+
+/* Pour les sections split-screen, on réduit pour faire tenir les 2 téléphones */
+.isolated-wrapper.multi .phone {
+  transform: scale(0.62);
+  transform-origin: center center;
+  margin: -130px 0 !important;
 }
 </style>
 
 <body>
-<section class="section" id="section-8">
-  
-          <div class="screen-content">
-            <h2 class="schedule-title">Thomas a accepté.<br>Quand voulez-vous lui parler ?</h2>
-            <p class="schedule-subtitle">Choisissez ensemble votre fenêtre de 30 minutes dans les 72h qui viennent.</p>
-
-            <div class="time-slot selected">
-              <div>
-                <div class="time-slot-date">Jeudi 23 mai</div>
-                <div class="time-slot-hour">21:00 – 21:30</div>
-              </div>
-              <div class="time-slot-mark"></div>
-            </div>
-            <div class="time-slot">
-              <div>
-                <div class="time-slot-date">Vendredi 24 mai</div>
-                <div class="time-slot-hour">12:30 – 13:00</div>
-              </div>
-              <div class="time-slot-mark"></div>
-            </div>
-            <div class="time-slot">
-              <div>
-                <div class="time-slot-date">Vendredi 24 mai</div>
-                <div class="time-slot-hour">20:00 – 20:30</div>
-              </div>
-              <div class="time-slot-mark"></div>
-            </div>
-            <div class="time-slot">
-              <div>
-                <div class="time-slot-date">Samedi 25 mai</div>
-                <div class="time-slot-hour">10:30 – 11:00</div>
-              </div>
-              <div class="time-slot-mark"></div>
-            </div>
-
-            <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--ink-mute); margin-top:20px; line-height:1.5;">
+<div class="isolated-wrapper multi">
+<div class="phone">
+<div class="screen">
+<div class="status-bar"><span>19:05</span><span class="status-right">●●● ●</span></div>
+<div class="app-header">
+<div class="app-logo">ALMA</div>
+<div class="app-menu-btn"><span></span><span></span></div>
+</div>
+<div class="screen-content">
+<h2 class="schedule-title">Thomas a accepté.<br/>Quand voulez-vous lui parler ?</h2>
+<p class="schedule-subtitle">Choisissez ensemble votre fenêtre de 30 minutes dans les 72h qui viennent.</p>
+<div class="time-slot selected">
+<div>
+<div class="time-slot-date">Jeudi 23 mai</div>
+<div class="time-slot-hour">21:00 – 21:30</div>
+</div>
+<div class="time-slot-mark"></div>
+</div>
+<div class="time-slot">
+<div>
+<div class="time-slot-date">Vendredi 24 mai</div>
+<div class="time-slot-hour">12:30 – 13:00</div>
+</div>
+<div class="time-slot-mark"></div>
+</div>
+<div class="time-slot">
+<div>
+<div class="time-slot-date">Vendredi 24 mai</div>
+<div class="time-slot-hour">20:00 – 20:30</div>
+</div>
+<div class="time-slot-mark"></div>
+</div>
+<div class="time-slot">
+<div>
+<div class="time-slot-date">Samedi 25 mai</div>
+<div class="time-slot-hour">10:30 – 11:00</div>
+</div>
+<div class="time-slot-mark"></div>
+</div>
+<p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--ink-mute); margin-top:20px; line-height:1.5;">
               Une fois choisi, ce créneau devient un engagement. Manquer un rendez-vous sans prévenir compte comme un ghosting.
             </p>
-          </div>
-          <button class="btn-primary btn-bottom">Confirmer 21:00</button>
-        </div>
-      </div>
-      <div class="mockup-label">Programmation · <strong>Créneaux compatibles</strong></div>
-    </div>
-
-    <div class="mockup-container">
-      <div class="phone">
-        <div class="screen">
-          <div class="status-bar"><span>20:55</span><span class="status-right">●●● ●</span></div>
-          <div class="app-header">
-            <div class="app-logo">ALMA</div>
-            <div class="app-menu-btn"><span></span><span></span></div>
-          </div>
-          <div class="waiting-screen">
-            <div class="waiting-mark">⏱</div>
-            <h2 class="waiting-title">Votre rendez-vous<br>avec Thomas approche.</h2>
-            <p class="waiting-time">Dans <strong>5 minutes</strong></p>
-            <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:var(--ink-mute); margin-top:10px; line-height:1.6; padding:0 10px;">
-              30 minutes pour faire connaissance.<br>
+</div>
+<button class="btn-primary btn-bottom">Confirmer 21:00</button>
+</div>
+</div><div class="phone">
+<div class="screen">
+<div class="status-bar"><span>20:55</span><span class="status-right">●●● ●</span></div>
+<div class="app-header">
+<div class="app-logo">ALMA</div>
+<div class="app-menu-btn"><span></span><span></span></div>
+</div>
+<div class="waiting-screen">
+<div class="waiting-mark">⏱</div>
+<h2 class="waiting-title">Votre rendez-vous<br/>avec Thomas approche.</h2>
+<p class="waiting-time">Dans <strong>5 minutes</strong></p>
+<p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:var(--ink-mute); margin-top:10px; line-height:1.6; padding:0 10px;">
+              30 minutes pour faire connaissance.<br/>
               Prenez quelques instants pour vous installer.
             </p>
-          </div>
-        </div>
-      </div>
-      <div class="mockup-label">Notification rappel · <strong>5 min avant</strong></div>
-    </div>
-
-  </div>
-</section>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>

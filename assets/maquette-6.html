@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>ALMA — Maquettes complètes de l'application</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
 <style>
 :root {
   --cream: #F4EFE6;
@@ -1608,91 +1608,101 @@ body {
 </head>
 
 <style>
-/* Override pour affichage isolé d'une seule section */
-body {
+/* === ISOLATION DU TÉLÉPHONE === */
+html, body {
   margin: 0 !important;
   padding: 0 !important;
+  height: 100vh !important;
+  width: 100vw !important;
   overflow: hidden !important;
   background: var(--cream, #F4EFE6) !important;
 }
-.intro, .section-header, footer, nav, .nav { display: none !important; }
-.section {
-  min-height: auto !important;
-  padding: 1rem !important;
-  margin: 0 !important;
+
+body {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
-.section > * {
-  margin-top: 0 !important;
+
+.isolated-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
 }
-html, body {
-  height: 100% !important;
-  width: 100% !important;
+
+/* Le téléphone à sa taille native */
+.phone {
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+}
+
+/* Pour les sections split-screen, on réduit pour faire tenir les 2 téléphones */
+.isolated-wrapper.multi .phone {
+  transform: scale(0.62);
+  transform-origin: center center;
+  margin: -130px 0 !important;
 }
 </style>
 
 <body>
-<section class="section" id="section-6">
-  
-          <div class="screen-content">
-            <div class="home-greeting">
-              <div class="greeting-day">Jeudi 23 mai</div>
-              <h2 class="greeting-text">Bonsoir Marie.<br><em>Trois personnes vous attendent.</em></h2>
-            </div>
-
-            <div class="profile-card">
-              <div class="profile-photo">
-                <div class="availability-tag">Disponible</div>
-              </div>
-              <div class="profile-info">
-                <div class="profile-name-row">
-                  <span class="profile-name">Thomas</span>
-                  <span class="profile-age">34</span>
-                </div>
-                <div class="profile-city">Paris 11e · 4 km</div>
-                <div class="profile-snippet">"Ce qui me fait pleurer au cinéma : les fins où les personnages se quittent en silence."</div>
-              </div>
-            </div>
-
-            <div class="profile-card">
-              <div class="profile-photo profile-photo-2">
-                <div class="availability-tag">Disponible</div>
-              </div>
-              <div class="profile-info">
-                <div class="profile-name-row">
-                  <span class="profile-name">Adrien</span>
-                  <span class="profile-age">31</span>
-                </div>
-                <div class="profile-city">Paris 9e · 6 km</div>
-                <div class="profile-snippet">"Ce qui m'a fait grandir cette année : apprendre à dire non sans me justifier."</div>
-              </div>
-            </div>
-
-            <div class="profile-card">
-              <div class="profile-photo profile-photo-3">
-                <div class="availability-tag">Disponible</div>
-              </div>
-              <div class="profile-info">
-                <div class="profile-name-row">
-                  <span class="profile-name">Lucas</span>
-                  <span class="profile-age">36</span>
-                </div>
-                <div class="profile-city">Paris 3e · 3 km</div>
-                <div class="profile-snippet">"Mon dimanche idéal en cinq mots : marche, livre, café, silence, ami."</div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-      <div class="mockup-label">Cycle quotidien · <strong>Trois profils, pas plus</strong></div>
-    </div>
-  </div>
-  <div class="feature-note">
-    <strong>Pourquoi trois et pas dix.</strong> Le cerveau humain ne peut pas comparer 10 profils sans tomber dans la consommation. À trois, chaque profil reçoit une attention réelle. La rareté force la profondeur du regard. C'est l'inverse exact du flux infini.
-  </div>
-</section>
+<div class="isolated-wrapper">
+<div class="phone">
+<div class="screen">
+<div class="status-bar"><span>19:00</span><span class="status-right">●●● ●</span></div>
+<div class="app-header">
+<div class="app-logo">ALMA</div>
+<div class="app-menu-btn"><span></span><span></span></div>
+</div>
+<div class="screen-content">
+<div class="home-greeting">
+<div class="greeting-day">Jeudi 23 mai</div>
+<h2 class="greeting-text">Bonsoir Marie.<br/><em>Trois personnes vous attendent.</em></h2>
+</div>
+<div class="profile-card">
+<div class="profile-photo">
+<div class="availability-tag">Disponible</div>
+</div>
+<div class="profile-info">
+<div class="profile-name-row">
+<span class="profile-name">Thomas</span>
+<span class="profile-age">34</span>
+</div>
+<div class="profile-city">Paris 11e · 4 km</div>
+<div class="profile-snippet">"Ce qui me fait pleurer au cinéma : les fins où les personnages se quittent en silence."</div>
+</div>
+</div>
+<div class="profile-card">
+<div class="profile-photo profile-photo-2">
+<div class="availability-tag">Disponible</div>
+</div>
+<div class="profile-info">
+<div class="profile-name-row">
+<span class="profile-name">Adrien</span>
+<span class="profile-age">31</span>
+</div>
+<div class="profile-city">Paris 9e · 6 km</div>
+<div class="profile-snippet">"Ce qui m'a fait grandir cette année : apprendre à dire non sans me justifier."</div>
+</div>
+</div>
+<div class="profile-card">
+<div class="profile-photo profile-photo-3">
+<div class="availability-tag">Disponible</div>
+</div>
+<div class="profile-info">
+<div class="profile-name-row">
+<span class="profile-name">Lucas</span>
+<span class="profile-age">36</span>
+</div>
+<div class="profile-city">Paris 3e · 3 km</div>
+<div class="profile-snippet">"Mon dimanche idéal en cinq mots : marche, livre, café, silence, ami."</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>ALMA — Maquettes complètes de l'application</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
 <style>
 :root {
   --cream: #F4EFE6;
@@ -1608,97 +1608,105 @@ body {
 </head>
 
 <style>
-/* Override pour affichage isolé d'une seule section */
-body {
+/* === ISOLATION DU TÉLÉPHONE === */
+html, body {
   margin: 0 !important;
   padding: 0 !important;
+  height: 100vh !important;
+  width: 100vw !important;
   overflow: hidden !important;
   background: var(--cream, #F4EFE6) !important;
 }
-.intro, .section-header, footer, nav, .nav { display: none !important; }
-.section {
-  min-height: auto !important;
-  padding: 1rem !important;
-  margin: 0 !important;
+
+body {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
-.section > * {
-  margin-top: 0 !important;
+
+.isolated-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
 }
-html, body {
-  height: 100% !important;
-  width: 100% !important;
+
+/* Le téléphone à sa taille native */
+.phone {
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+}
+
+/* Pour les sections split-screen, on réduit pour faire tenir les 2 téléphones */
+.isolated-wrapper.multi .phone {
+  transform: scale(0.62);
+  transform-origin: center center;
+  margin: -130px 0 !important;
 }
 </style>
 
 <body>
-<section class="section" id="section-5">
-  
-          <div class="screen-content">
-            <div class="onboard-step-label" style="margin-top:10px;">Votre photo</div>
-            <h2 class="onboard-question" style="font-size:22px;">Une seule photo. Récente. Vraie.</h2>
-            <p class="onboard-help" style="margin-bottom:24px;">Pas de filtres, pas de retouches. Notre IA détecte les modifications. Soyez vous-même.</p>
-
-            <div style="width:100%; height:280px; background:linear-gradient(135deg, #B8A988, #6B5C48); margin-bottom:20px; position:relative; overflow:hidden;">
-              <div style="position:absolute; inset:0; background:radial-gradient(at 30% 30%, rgba(244,239,230,0.3), transparent 50%);"></div>
-              <div style="position:absolute; bottom:14px; left:14px; right:14px; color:var(--cream); font-family:'Inter',sans-serif; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; display:flex; justify-content:space-between;">
-                <span>Photo principale</span>
-                <span style="color:#a5d4a8;">✓ Authentique</span>
-              </div>
-            </div>
-            <button class="btn-secondary" style="width:100%;">Remplacer la photo</button>
-          </div>
-        </div>
-      </div>
-      <div class="mockup-label">Photo unique · <strong>Détection anti-filtre</strong></div>
-    </div>
-
-    <div class="mockup-container">
-      <div class="phone">
-        <div class="screen">
-          <div class="status-bar"><span>9:41</span><span class="status-right">●●● ●</span></div>
-          <div class="app-header">
-            <div class="app-logo">ALMA</div>
-            <div class="app-menu-btn"><span></span><span></span></div>
-          </div>
-          <div class="screen-content">
-            <div class="onboard-step-label" style="margin-top:10px;">Préférences physiques</div>
-            <h2 class="onboard-question" style="font-size:22px;">Ce qui vous attire physiquement.</h2>
-            <p class="onboard-help" style="margin-bottom:24px;">Pas de tabou. Modifiable à tout moment, ou désactivable si vous êtes ouvert à tout.</p>
-
-            <div class="settings-item">
-              <div class="settings-label">Genre recherché</div>
-              <div class="settings-value">Hommes</div>
-            </div>
-            <div class="settings-item">
-              <div class="settings-label">Tranche d'âge</div>
-              <div class="settings-value">28 – 38 ans</div>
-            </div>
-            <div class="settings-item">
-              <div class="settings-label">Taille</div>
-              <div class="settings-value">Sans préférence</div>
-            </div>
-            <div class="settings-item">
-              <div class="settings-label">Distance maximale</div>
-              <div class="settings-value">30 km</div>
-            </div>
-            <div class="settings-item">
-              <div class="settings-label">Filtre physique</div>
-              <div class="settings-value" style="color:var(--burgundy);">Activé</div>
-            </div>
-
-            <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--ink-mute); margin-top:20px; line-height:1.5;">
+<div class="isolated-wrapper multi">
+<div class="phone">
+<div class="screen">
+<div class="status-bar"><span>9:41</span><span class="status-right">●●● ●</span></div>
+<div class="app-header">
+<div class="app-logo">ALMA</div>
+<div class="app-menu-btn"><span></span><span></span></div>
+</div>
+<div class="screen-content">
+<div class="onboard-step-label" style="margin-top:10px;">Votre photo</div>
+<h2 class="onboard-question" style="font-size:22px;">Une seule photo. Récente. Vraie.</h2>
+<p class="onboard-help" style="margin-bottom:24px;">Pas de filtres, pas de retouches. Notre IA détecte les modifications. Soyez vous-même.</p>
+<div style="width:100%; height:280px; background:linear-gradient(135deg, #B8A988, #6B5C48); margin-bottom:20px; position:relative; overflow:hidden;">
+<div style="position:absolute; inset:0; background:radial-gradient(at 30% 30%, rgba(244,239,230,0.3), transparent 50%);"></div>
+<div style="position:absolute; bottom:14px; left:14px; right:14px; color:var(--cream); font-family:'Inter',sans-serif; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; display:flex; justify-content:space-between;">
+<span>Photo principale</span>
+<span style="color:#a5d4a8;">✓ Authentique</span>
+</div>
+</div>
+<button class="btn-secondary" style="width:100%;">Remplacer la photo</button>
+</div>
+</div>
+</div><div class="phone">
+<div class="screen">
+<div class="status-bar"><span>9:41</span><span class="status-right">●●● ●</span></div>
+<div class="app-header">
+<div class="app-logo">ALMA</div>
+<div class="app-menu-btn"><span></span><span></span></div>
+</div>
+<div class="screen-content">
+<div class="onboard-step-label" style="margin-top:10px;">Préférences physiques</div>
+<h2 class="onboard-question" style="font-size:22px;">Ce qui vous attire physiquement.</h2>
+<p class="onboard-help" style="margin-bottom:24px;">Pas de tabou. Modifiable à tout moment, ou désactivable si vous êtes ouvert à tout.</p>
+<div class="settings-item">
+<div class="settings-label">Genre recherché</div>
+<div class="settings-value">Hommes</div>
+</div>
+<div class="settings-item">
+<div class="settings-label">Tranche d'âge</div>
+<div class="settings-value">28 – 38 ans</div>
+</div>
+<div class="settings-item">
+<div class="settings-label">Taille</div>
+<div class="settings-value">Sans préférence</div>
+</div>
+<div class="settings-item">
+<div class="settings-label">Distance maximale</div>
+<div class="settings-value">30 km</div>
+</div>
+<div class="settings-item">
+<div class="settings-label">Filtre physique</div>
+<div class="settings-value" style="color:var(--burgundy);">Activé</div>
+</div>
+<p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--ink-mute); margin-top:20px; line-height:1.5;">
               Vous pouvez désactiver totalement le filtre physique à tout moment.
             </p>
-          </div>
-        </div>
-      </div>
-      <div class="mockup-label">Préférences · <strong>Modifiables, désactivables</strong></div>
-    </div>
-
-  </div>
-</section>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>

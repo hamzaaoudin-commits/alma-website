@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>ALMA — Maquettes complètes de l'application</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
 <style>
 :root {
   --cream: #F4EFE6;
@@ -1608,72 +1608,84 @@ body {
 </head>
 
 <style>
-/* Override pour affichage isolé d'une seule section */
-body {
+/* === ISOLATION DU TÉLÉPHONE === */
+html, body {
   margin: 0 !important;
   padding: 0 !important;
+  height: 100vh !important;
+  width: 100vw !important;
   overflow: hidden !important;
   background: var(--cream, #F4EFE6) !important;
 }
-.intro, .section-header, footer, nav, .nav { display: none !important; }
-.section {
-  min-height: auto !important;
-  padding: 1rem !important;
-  margin: 0 !important;
+
+body {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
-.section > * {
-  margin-top: 0 !important;
+
+.isolated-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
 }
-html, body {
-  height: 100% !important;
-  width: 100% !important;
+
+/* Le téléphone à sa taille native */
+.phone {
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+}
+
+/* Pour les sections split-screen, on réduit pour faire tenir les 2 téléphones */
+.isolated-wrapper.multi .phone {
+  transform: scale(0.62);
+  transform-origin: center center;
+  margin: -130px 0 !important;
 }
 </style>
 
 <body>
-<section class="section" id="section-16">
-  
-          <div class="screen-content" style="padding-bottom:120px;">
-            <div class="pause-hero">
-              <div class="pause-symbol"></div>
-              <h2 class="pause-title">Voulez-vous mettre<br>ALMA en pause ?</h2>
-            </div>
-            <p class="pause-text">
+<div class="isolated-wrapper">
+<div class="phone">
+<div class="screen">
+<div class="status-bar"><span>9:41</span><span class="status-right">●●● ●</span></div>
+<div class="app-header">
+<div class="app-logo">ALMA</div>
+<div class="app-menu-btn"><span></span><span></span></div>
+</div>
+<div class="screen-content" style="padding-bottom:120px;">
+<div class="pause-hero">
+<div class="pause-symbol"></div>
+<h2 class="pause-title">Voulez-vous mettre<br/>ALMA en pause ?</h2>
+</div>
+<p class="pause-text">
               Quand on trouve quelqu'un, on n'a plus besoin de chercher. Suspendez votre compte gratuitement pendant trois mois. Vous pourrez le réactiver à tout moment si vous le souhaitez.
             </p>
-
-            <div class="settings-item">
-              <div class="settings-label">Durée de la pause</div>
-              <div class="settings-value">3 mois</div>
-            </div>
-            <div class="settings-item">
-              <div class="settings-label">Facturation</div>
-              <div class="settings-value" style="color:var(--success);">Suspendue</div>
-            </div>
-            <div class="settings-item">
-              <div class="settings-label">Votre profil</div>
-              <div class="settings-value">Invisible aux autres</div>
-            </div>
-
-            <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--ink-mute); margin-top:30px; line-height:1.6; text-align:center;">
+<div class="settings-item">
+<div class="settings-label">Durée de la pause</div>
+<div class="settings-value">3 mois</div>
+</div>
+<div class="settings-item">
+<div class="settings-label">Facturation</div>
+<div class="settings-value" style="color:var(--success);">Suspendue</div>
+</div>
+<div class="settings-item">
+<div class="settings-label">Votre profil</div>
+<div class="settings-value">Invisible aux autres</div>
+</div>
+<p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--ink-mute); margin-top:30px; line-height:1.6; text-align:center;">
               Notre succès, c'est votre départ.
             </p>
-          </div>
-          <div class="action-bar">
-            <button class="btn-primary">Mettre en pause</button>
-            <button class="btn-secondary">Plus tard</button>
-          </div>
-        </div>
-      </div>
-      <div class="mockup-label">Mode pause couple · <strong>Notre succès = votre départ</strong></div>
-    </div>
-  </div>
-  <div class="feature-note">
-    <strong>Le contre-modèle économique le plus radical du marché.</strong> Tinder fait tout pour vous retenir. ALMA fait tout pour vous laisser partir. Cette friction inversée crée un attachement émotionnel à la marque qu'aucune campagne marketing ne peut acheter.
-  </div>
-</section>
+</div>
+<div class="action-bar">
+<button class="btn-primary">Mettre en pause</button>
+<button class="btn-secondary">Plus tard</button>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>
