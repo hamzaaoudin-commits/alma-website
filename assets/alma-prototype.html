@@ -1,0 +1,2526 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALMA — Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #F4EFE6;
+  --cream-deep: #EBE3D4;
+  --cream-soft: #F9F5EE;
+  --ink: #1A1814;
+  --ink-soft: #3A3631;
+  --ink-mute: #6B6760;
+  --burgundy: #6B1F2A;
+  --burgundy-deep: #4A1219;
+  --gold: #A88B5A;
+  --rule: #CFC4B0;
+  --rule-soft: #E2D9C6;
+  --success: #3A5A3E;
+  --error: #8B2D1A;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Fraunces', serif;
+  background: #2A2622;
+  background-image:
+    radial-gradient(at 20% 10%, rgba(168, 139, 90, 0.05) 0px, transparent 50%),
+    radial-gradient(at 80% 90%, rgba(107, 31, 42, 0.05) 0px, transparent 50%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============== ENVIRONMENT WRAPPER ============== */
+.demo-wrapper {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  max-width: 1400px;
+  width: 100%;
+}
+
+.demo-info {
+  flex: 1;
+  max-width: 380px;
+  color: var(--cream);
+  padding-top: 40px;
+}
+
+.demo-title {
+  font-family: 'Fraunces', serif;
+  font-size: 36px;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  margin-bottom: 14px;
+}
+
+.demo-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--gold);
+  margin-bottom: 30px;
+}
+
+.demo-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+.demo-instructions {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(244, 239, 230, 0.7);
+  margin-bottom: 30px;
+}
+
+.demo-shortcuts {
+  background: rgba(244, 239, 230, 0.05);
+  padding: 20px;
+  border-left: 2px solid var(--gold);
+  margin-bottom: 30px;
+}
+
+.demo-shortcuts h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.shortcut-btn {
+  display: block;
+  width: 100%;
+  background: transparent;
+  color: var(--cream);
+  border: 1px solid rgba(244, 239, 230, 0.15);
+  padding: 10px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-align: left;
+  cursor: pointer;
+  margin-bottom: 6px;
+  transition: all 0.2s ease;
+}
+
+.shortcut-btn:hover {
+  background: rgba(168, 139, 90, 0.1);
+  border-color: var(--gold);
+}
+
+.demo-credit {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(244, 239, 230, 0.4);
+  margin-top: 40px;
+}
+
+/* ============== PHONE FRAME ============== */
+.phone-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.phone {
+  width: 380px;
+  height: 780px;
+  background: var(--ink);
+  border-radius: 50px;
+  padding: 14px;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 40px 100px rgba(0, 0, 0, 0.3);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.phone::before {
+  content: "";
+  position: absolute;
+  top: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 115px;
+  height: 28px;
+  background: var(--ink);
+  border-radius: 16px;
+  z-index: 100;
+}
+
+.screen {
+  width: 100%;
+  height: 100%;
+  background: var(--cream);
+  border-radius: 38px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============== STATUS BAR ============== */
+.status-bar {
+  height: 50px;
+  padding: 16px 32px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.status-bar.dark { color: var(--cream); }
+
+/* ============== APP HEADER ============== */
+.app-header {
+  padding: 18px 28px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.app-logo {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: var(--ink);
+}
+
+.app-logo.dark { color: var(--cream); }
+
+.back-btn, .menu-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  padding: 8px;
+}
+
+.menu-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.menu-btn span {
+  display: block;
+  height: 1px;
+  background: var(--ink);
+}
+
+.menu-btn span:nth-child(1) { width: 18px; }
+.menu-btn span:nth-child(2) { width: 12px; }
+
+/* ============== SCROLLABLE CONTENT ============== */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 28px 40px;
+  scroll-behavior: smooth;
+}
+
+.content::-webkit-scrollbar { display: none; }
+
+/* ============== SCREEN VIEWS ============== */
+.view {
+  display: none;
+  flex-direction: column;
+  height: 100%;
+  animation: fadeIn 0.4s ease;
+}
+
+.view.active { display: flex; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============== BUTTONS ============== */
+.btn {
+  width: 100%;
+  padding: 18px 24px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.btn-primary:hover { background: var(--burgundy); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+
+.btn-secondary:hover {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.btn-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 28px 30px;
+}
+
+/* ============================================================ */
+/* SCREEN: WELCOME                                              */
+/* ============================================================ */
+#welcome {
+  background: var(--cream);
+  position: relative;
+}
+
+#welcome::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(at 30% 20%, rgba(107, 31, 42, 0.05) 0px, transparent 50%),
+    radial-gradient(at 70% 80%, rgba(168, 139, 90, 0.08) 0px, transparent 50%);
+  pointer-events: none;
+}
+
+.welcome-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 80px 32px 40px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.welcome-mark {
+  font-family: 'Fraunces', serif;
+  font-size: 56px;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  margin: 40px 0 20px;
+}
+
+.welcome-line {
+  width: 40px;
+  height: 1px;
+  background: var(--burgundy);
+  margin: 0 auto 20px;
+}
+
+.welcome-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--burgundy);
+  margin-bottom: 0;
+}
+
+.welcome-manifesto {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  padding: 30px 0;
+}
+
+/* ============================================================ */
+/* ONBOARDING                                                   */
+/* ============================================================ */
+.onboard-progress {
+  display: flex;
+  gap: 5px;
+  padding: 10px 28px 20px;
+  flex-shrink: 0;
+}
+
+.progress-step {
+  flex: 1;
+  height: 2px;
+  background: var(--rule-soft);
+}
+
+.progress-step.active { background: var(--burgundy); }
+
+.step-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 10px;
+}
+
+.step-question {
+  font-family: 'Fraunces', serif;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.step-help {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-mute);
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+.input-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 4px;
+  margin-top: 16px;
+}
+
+.input-field {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  padding: 12px 0;
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  color: var(--ink);
+  transition: border-color 0.2s ease;
+}
+
+.input-field:focus {
+  outline: none;
+  border-bottom-color: var(--burgundy);
+}
+
+.input-field::placeholder {
+  color: var(--ink-mute);
+  font-style: italic;
+}
+
+/* ============== INTENTION CARD ============== */
+.intention-card {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 24px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.intention-title {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.intention-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+.intention-note {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink-mute);
+  margin-top: 24px;
+  line-height: 1.6;
+  text-align: center;
+  padding: 0 10px;
+}
+
+/* ============== VERIFICATION ============== */
+.verify-icon {
+  width: 90px;
+  height: 90px;
+  border: 1px solid var(--burgundy);
+  border-radius: 50%;
+  margin: 30px auto 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-size: 34px;
+  font-weight: 300;
+  color: var(--burgundy);
+}
+
+.verify-checklist {
+  list-style: none;
+  margin: 20px 0;
+}
+
+.verify-checklist li {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink-soft);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule-soft);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.verify-checklist li::before {
+  content: "—";
+  color: var(--burgundy);
+}
+
+/* ============== VALUES QUESTIONNAIRE ============== */
+.value-question {
+  margin-bottom: 20px;
+}
+
+.value-question-text {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  line-height: 1.35;
+  margin-bottom: 16px;
+}
+
+.value-scale {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px;
+  margin-bottom: 8px;
+}
+
+.scale-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.scale-dot:hover {
+  border-color: var(--burgundy);
+  transform: scale(1.1);
+}
+
+.scale-dot.selected {
+  background: var(--burgundy);
+  border-color: var(--burgundy);
+}
+
+.scale-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+/* ============== PROFILE QUESTIONS ============== */
+.profile-q-list {
+  margin-top: 16px;
+}
+
+.profile-q-item {
+  background: var(--cream-soft);
+  border-left: 2px solid var(--rule);
+  padding: 16px 18px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.profile-q-item:hover { border-left-color: var(--burgundy); }
+
+.profile-q-item.selected {
+  border-left-color: var(--burgundy);
+  background: var(--cream-deep);
+}
+
+.profile-q-prompt {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  margin-bottom: 6px;
+}
+
+.profile-q-text {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+/* ============================================================ */
+/* HOME: 3 PROFILES                                             */
+/* ============================================================ */
+.home-greeting {
+  padding: 4px 0 24px;
+}
+
+.greeting-day {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 6px;
+}
+
+.greeting-text {
+  font-family: 'Fraunces', serif;
+  font-size: 23px;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.greeting-text em {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: var(--burgundy);
+}
+
+.profile-card {
+  background: var(--cream-soft);
+  margin-bottom: 14px;
+  border: 1px solid var(--rule-soft);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(26, 24, 20, 0.1);
+}
+
+.profile-photo {
+  width: 100%;
+  height: 220px;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-photo-1 {
+  background:
+    radial-gradient(at 30% 30%, rgba(244, 239, 230, 0.3), transparent 50%),
+    linear-gradient(135deg, #B8A988 0%, #8B7A60 60%, #4A3F30 100%);
+}
+
+.profile-photo-2 {
+  background:
+    radial-gradient(at 35% 35%, rgba(244, 239, 230, 0.3), transparent 50%),
+    linear-gradient(135deg, #A88B5A 0%, #6B5538 60%, #3A2E1F 100%);
+}
+
+.profile-photo-3 {
+  background:
+    radial-gradient(at 40% 30%, rgba(244, 239, 230, 0.3), transparent 50%),
+    linear-gradient(135deg, #CFC4B0 0%, #8B7A60 50%, #4A3F30 100%);
+}
+
+.availability-tag {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(244, 239, 230, 0.95);
+  padding: 6px 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.availability-tag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--success);
+  border-radius: 50%;
+}
+
+.profile-info {
+  padding: 16px 20px 18px;
+}
+
+.profile-name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.profile-name {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+}
+
+.profile-age {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--ink-mute);
+}
+
+.profile-city {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 12px;
+}
+
+.profile-snippet {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  padding: 12px 0 0;
+  border-top: 1px solid var(--rule-soft);
+}
+
+/* ============================================================ */
+/* PROFILE DETAIL                                               */
+/* ============================================================ */
+.detail-hero {
+  width: 100%;
+  height: 320px;
+  position: relative;
+  margin-bottom: 24px;
+  flex-shrink: 0;
+}
+
+.detail-name {
+  font-family: 'Fraunces', serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 6px;
+  padding: 0 28px;
+}
+
+.detail-meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 20px;
+  padding: 0 28px;
+}
+
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--cream-soft);
+  padding: 6px 12px;
+  border: 1px solid var(--rule-soft);
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--success);
+  margin-left: 28px;
+  margin-bottom: 20px;
+}
+
+.verified-badge::before {
+  content: "✓";
+  font-size: 11px;
+}
+
+.detail-divider {
+  width: 30px;
+  height: 1px;
+  background: var(--burgundy);
+  margin: 16px 28px 16px;
+}
+
+.detail-questions {
+  padding: 0 28px 20px;
+}
+
+.detail-question {
+  background: var(--cream-soft);
+  border-left: 2px solid var(--burgundy);
+  padding: 18px 20px;
+  margin-bottom: 12px;
+}
+
+.detail-q-prompt {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  margin-bottom: 8px;
+}
+
+.detail-q-text {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+/* ============================================================ */
+/* SCHEDULE                                                     */
+/* ============================================================ */
+.schedule-title {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.25;
+  margin: 10px 0 8px;
+}
+
+.schedule-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-mute);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.time-slot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 18px;
+  background: var(--cream-soft);
+  border: 1px solid var(--rule-soft);
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.time-slot:hover { border-color: var(--burgundy); }
+
+.time-slot.selected {
+  border-color: var(--burgundy);
+  background: var(--cream-deep);
+}
+
+.time-slot-date {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 4px;
+}
+
+.time-slot-hour {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.time-slot-mark {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+
+.time-slot.selected .time-slot-mark {
+  background: var(--burgundy);
+  border-color: var(--burgundy);
+}
+
+/* ============================================================ */
+/* WAITING SCREEN                                               */
+/* ============================================================ */
+.waiting-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 32px;
+}
+
+.waiting-mark {
+  font-family: 'Fraunces', serif;
+  font-size: 70px;
+  font-weight: 200;
+  color: var(--burgundy);
+  margin-bottom: 30px;
+  opacity: 0.5;
+}
+
+.waiting-title {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  line-height: 1.3;
+  margin-bottom: 20px;
+}
+
+.waiting-time {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--ink-soft);
+}
+
+.waiting-time strong {
+  color: var(--burgundy);
+  font-weight: 600;
+  font-style: normal;
+}
+
+.waiting-note {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-mute);
+  margin-top: 24px;
+  line-height: 1.6;
+  padding: 0 20px;
+}
+
+/* ============================================================ */
+/* CONVERSATION                                                 */
+/* ============================================================ */
+.conv-header {
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+
+.conv-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.conv-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #B8A988, #6B5C48);
+  flex-shrink: 0;
+}
+
+.conv-name {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+}
+
+.conv-status {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  margin-top: 2px;
+}
+
+.conv-timer-wrap {
+  text-align: right;
+}
+
+.conv-timer-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 2px;
+}
+
+.conv-timer {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  color: var(--burgundy);
+  font-weight: 500;
+}
+
+.conv-body {
+  flex: 1;
+  padding: 20px 28px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.conv-body::-webkit-scrollbar { display: none; }
+
+.message {
+  max-width: 78%;
+  padding: 12px 16px;
+  font-family: 'Fraunces', serif;
+  font-size: 14px;
+  line-height: 1.45;
+  animation: messageIn 0.4s ease;
+}
+
+@keyframes messageIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message.them {
+  background: var(--cream-soft);
+  border: 1px solid var(--rule-soft);
+  align-self: flex-start;
+}
+
+.message.me {
+  background: var(--ink);
+  color: var(--cream);
+  align-self: flex-end;
+}
+
+.conv-input-area {
+  padding: 14px 28px 18px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: var(--cream);
+  flex-shrink: 0;
+}
+
+.conv-input {
+  flex: 1;
+  background: var(--cream-soft);
+  border: 1px solid var(--rule-soft);
+  padding: 12px 16px;
+  font-family: 'Fraunces', serif;
+  font-size: 14px;
+  color: var(--ink);
+  outline: none;
+}
+
+.conv-input::placeholder {
+  font-style: italic;
+  color: var(--ink-mute);
+}
+
+.send-btn {
+  width: 40px;
+  height: 40px;
+  background: var(--ink);
+  color: var(--cream);
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.send-btn:hover { background: var(--burgundy); }
+
+/* ============== IA ALERT ============== */
+.ia-alert {
+  position: absolute;
+  bottom: 80px;
+  left: 20px;
+  right: 20px;
+  background: var(--cream);
+  border: 1px solid var(--burgundy);
+  padding: 18px 20px;
+  box-shadow: 0 10px 30px rgba(26, 24, 20, 0.2);
+  z-index: 100;
+  animation: alertIn 0.5s ease;
+}
+
+@keyframes alertIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ia-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  margin-bottom: 8px;
+}
+
+.ia-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.ia-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.ia-btn {
+  flex: 1;
+  padding: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+}
+
+.ia-btn.primary { background: var(--ink); color: var(--cream); }
+.ia-btn.secondary {
+  background: transparent;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+}
+
+/* ============================================================ */
+/* END CONVERSATION                                             */
+/* ============================================================ */
+.end-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 28px;
+  text-align: center;
+}
+
+.end-icon {
+  font-family: 'Fraunces', serif;
+  font-size: 50px;
+  font-weight: 200;
+  color: var(--burgundy);
+  margin: 20px auto 24px;
+}
+
+.end-title {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+
+.end-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin-bottom: 30px;
+}
+
+.choice-card {
+  background: var(--cream-soft);
+  border: 1px solid var(--rule-soft);
+  padding: 20px;
+  text-align: left;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.choice-card:hover {
+  border-color: var(--burgundy);
+  transform: translateY(-1px);
+}
+
+.choice-card.primary {
+  background: var(--ink);
+  color: var(--cream);
+  border-color: var(--ink);
+}
+
+.choice-card.primary:hover { background: var(--burgundy); }
+
+.choice-title {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.choice-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 13px;
+  opacity: 0.75;
+  line-height: 1.5;
+}
+
+/* ============================================================ */
+/* CALL SCREEN                                                  */
+/* ============================================================ */
+#call .screen {
+  background: var(--ink);
+}
+
+.call-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 70px 32px 50px;
+  text-align: center;
+  color: var(--cream);
+  position: relative;
+}
+
+.call-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(at 50% 30%, rgba(168, 139, 90, 0.25) 0%, transparent 60%),
+    radial-gradient(at 30% 80%, rgba(107, 31, 42, 0.2) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.call-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.call-status {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 60px;
+}
+
+.call-avatar-large {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #B8A988, #6B5C48 50%, #3A2E1F);
+  margin: 0 auto 30px;
+  border: 2px solid rgba(168, 139, 90, 0.3);
+  animation: callPulse 3s infinite;
+}
+
+@keyframes callPulse {
+  0%, 100% { box-shadow: 0 0 60px rgba(168, 139, 90, 0.2); }
+  50% { box-shadow: 0 0 100px rgba(168, 139, 90, 0.4); }
+}
+
+.call-name {
+  font-family: 'Fraunces', serif;
+  font-size: 30px;
+  font-weight: 300;
+  margin-bottom: 8px;
+}
+
+.call-duration {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+}
+
+.call-controls {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.call-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(244, 239, 230, 0.1);
+  border: 1px solid rgba(244, 239, 230, 0.2);
+  color: var(--cream);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.call-btn:hover { background: rgba(244, 239, 230, 0.2); }
+
+.call-btn.end {
+  background: var(--burgundy);
+  border-color: var(--burgundy);
+}
+
+.call-btn.end:hover { background: var(--burgundy-deep); }
+
+/* ============================================================ */
+/* PACK RENCONTRE                                               */
+/* ============================================================ */
+.pack-hero {
+  width: 100%;
+  height: 220px;
+  background:
+    linear-gradient(180deg, transparent 50%, rgba(26, 24, 20, 0.4) 100%),
+    linear-gradient(135deg, #D4C5A0 0%, #A88B5A 50%, #6B5538 100%);
+  margin-bottom: 20px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.pack-price {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: var(--cream);
+  font-family: 'Fraunces', serif;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.pack-detail-section {
+  padding: 0 28px 24px;
+}
+
+.pack-resto {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.pack-type {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  margin-bottom: 20px;
+}
+
+.pack-detail {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.pack-detail-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.pack-detail-value {
+  font-family: 'Fraunces', serif;
+  font-size: 14px;
+}
+
+.pack-menu {
+  margin-top: 24px;
+}
+
+.menu-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  margin-bottom: 14px;
+}
+
+.menu-item {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  padding: 6px 0;
+}
+
+/* ============================================================ */
+/* SOS SCREEN                                                   */
+/* ============================================================ */
+#sos .screen {
+  background: linear-gradient(180deg, var(--burgundy-deep) 0%, var(--ink) 100%);
+}
+
+.sos-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 60px 32px 40px;
+  text-align: center;
+  color: var(--cream);
+}
+
+.sos-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(244, 239, 230, 0.5);
+  margin-bottom: 30px;
+}
+
+.sos-icon {
+  width: 110px;
+  height: 110px;
+  border: 2px solid var(--cream);
+  border-radius: 50%;
+  margin: 20px auto 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-size: 44px;
+  font-weight: 300;
+  animation: sosPulse 2s infinite;
+}
+
+@keyframes sosPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(244, 239, 230, 0.4); }
+  50% { box-shadow: 0 0 0 24px rgba(244, 239, 230, 0); }
+}
+
+.sos-title {
+  font-family: 'Fraunces', serif;
+  font-size: 26px;
+  font-weight: 300;
+  margin-bottom: 14px;
+  line-height: 1.3;
+}
+
+.sos-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: 0.85;
+  margin-bottom: auto;
+  padding: 0 10px;
+}
+
+.sos-action {
+  background: var(--cream);
+  color: var(--burgundy-deep);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 18px 24px;
+  border: none;
+  font-weight: 600;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.sos-cancel {
+  background: transparent;
+  color: var(--cream);
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: 1px solid rgba(244, 239, 230, 0.3);
+  padding: 14px 24px;
+  cursor: pointer;
+}
+
+/* ============================================================ */
+/* POST-RENCONTRE                                               */
+/* ============================================================ */
+.post-content {
+  padding: 30px 28px;
+}
+
+.post-question {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.25;
+  margin: 20px 0 10px;
+}
+
+.post-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-mute);
+  margin-bottom: 30px;
+}
+
+/* ============================================================ */
+/* PROFILE OWN                                                  */
+/* ============================================================ */
+.own-profile {
+  padding: 20px 28px;
+  text-align: center;
+}
+
+.own-photo {
+  width: 110px;
+  height: 110px;
+  margin: 10px auto 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #B8A988, #6B5C48);
+  border: 3px solid var(--cream);
+  box-shadow: 0 0 0 1px var(--rule);
+}
+
+.own-name {
+  font-family: 'Fraunces', serif;
+  font-size: 26px;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+.own-meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 14px;
+}
+
+.settings-list {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.settings-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule-soft);
+  cursor: pointer;
+  transition: padding 0.2s ease;
+}
+
+.settings-item:hover {
+  padding-left: 8px;
+}
+
+.settings-label {
+  font-family: 'Fraunces', serif;
+  font-size: 15px;
+}
+
+.settings-value {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--ink-mute);
+}
+
+/* ============================================================ */
+/* MODAL                                                        */
+/* ============================================================ */
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 24, 20, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-backdrop.show { display: flex; }
+
+.modal {
+  background: var(--cream);
+  padding: 30px 24px;
+  margin: 0 24px;
+  max-width: 320px;
+  text-align: center;
+}
+
+.modal-title {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.modal-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.modal-close {
+  background: var(--ink);
+  color: var(--cream);
+  border: none;
+  padding: 12px 24px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* ============================================================ */
+/* SCALE SELECTED DOT positioning                               */
+/* ============================================================ */
+.dot-1 .scale-dot:nth-child(1).selected ~ ,
+.dot-2 .scale-dot:nth-child(2),
+.dot-3 .scale-dot:nth-child(3),
+.dot-4 .scale-dot:nth-child(4),
+.dot-5 .scale-dot:nth-child(5) {
+  background: var(--burgundy);
+  border-color: var(--burgundy);
+}
+
+@media (max-width: 850px) {
+  .demo-wrapper { flex-direction: column; align-items: center; }
+  .demo-info { max-width: 380px; padding-top: 0; text-align: center; }
+}
+
+@media (max-width: 420px) {
+  .phone { width: calc(100vw - 40px); height: calc((100vw - 40px) * 2.05); }
+}
+</style>
+</head>
+<body>
+
+<div class="demo-wrapper">
+
+  <!-- ====== INFO PANEL ====== -->
+  <div class="demo-info">
+    <div class="demo-label">— Prototype interactif —</div>
+    <h1 class="demo-title">ALMA</h1>
+    <p class="demo-tagline">Quelqu'un, pas quelque chose.</p>
+
+    <p class="demo-instructions">
+      Vous êtes Marie, 32 ans, Paris 11e. Ce prototype simule l'expérience complète d'ALMA. Cliquez librement, naviguez à votre rythme. Vous pouvez aussi sauter directement à un écran clé via les raccourcis.
+    </p>
+
+    <div class="demo-shortcuts">
+      <h4>Accès direct</h4>
+      <button class="shortcut-btn" onclick="goTo('welcome')">→ Écran d'accueil</button>
+      <button class="shortcut-btn" onclick="goTo('onboard-1')">→ Inscription</button>
+      <button class="shortcut-btn" onclick="goTo('verify')">→ Vérification d'identité</button>
+      <button class="shortcut-btn" onclick="goTo('values')">→ Questionnaire de valeurs</button>
+      <button class="shortcut-btn" onclick="goTo('home')">→ Mes 3 profils du jour</button>
+      <button class="shortcut-btn" onclick="goTo('profile')">→ Profil détaillé</button>
+      <button class="shortcut-btn" onclick="goTo('schedule')">→ Programmer un échange</button>
+      <button class="shortcut-btn" onclick="goTo('waiting')">→ Avant le rendez-vous</button>
+      <button class="shortcut-btn" onclick="goTo('conversation')">→ Conversation 30 min</button>
+      <button class="shortcut-btn" onclick="showIAAlert()">→ Voir l'alerte IA</button>
+      <button class="shortcut-btn" onclick="goTo('end-conv')">→ Fin de conversation</button>
+      <button class="shortcut-btn" onclick="goTo('call')">→ Appel vidéo</button>
+      <button class="shortcut-btn" onclick="goTo('pack')">→ Pack Rencontre</button>
+      <button class="shortcut-btn" onclick="goTo('sos')">→ Bouton SOS</button>
+      <button class="shortcut-btn" onclick="goTo('post')">→ Post-rencontre</button>
+      <button class="shortcut-btn" onclick="goTo('own-profile')">→ Mon profil</button>
+    </div>
+
+    <div class="demo-credit">Prototype · Mai 2026<br>Hamza El Jawahiry</div>
+  </div>
+
+  <!-- ====== PHONE ====== -->
+  <div class="phone-container">
+    <div class="phone">
+      <div class="screen">
+
+        <!-- =============================================== -->
+        <!-- VIEW: WELCOME                                   -->
+        <!-- =============================================== -->
+        <div class="view active" id="welcome">
+          <div class="status-bar"><span>9:41</span><span>●●● ●</span></div>
+          <div class="welcome-content">
+            <div>
+              <div class="welcome-mark">ALMA</div>
+              <div class="welcome-line"></div>
+              <div class="welcome-tagline">Quelqu'un, pas quelque chose.</div>
+            </div>
+            <div class="welcome-manifesto">
+              Nous ne croyons pas que l'amour soit un catalogue. Nous croyons que chaque personne mérite d'être rencontrée comme un être, pas comme un produit.
+            </div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <button class="btn btn-primary" onclick="goTo('onboard-1')">Je crée mon compte</button>
+              <button class="btn btn-secondary" onclick="openModal('Le manifeste', 'Le manifeste complet est disponible sur le site alma.app. Pour cette démo, vous pouvez cliquer sur Je crée mon compte pour démarrer le parcours.')">Lire le manifeste</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- VIEW: ONBOARD STEP 1 - IDENTITY                 -->
+        <!-- =============================================== -->
+        <div class="view" id="onboard-1">
+          <div class="status-bar"><span>9:41</span><span>●●● ●</span></div>
+          <div class="app-header">
+            <span class="app-logo">ALMA</span>
+            <button class="back-btn" onclick="goTo('welcome')">← Retour</button>
+          </div>
+          <div class="onboard-progress">
+            <div class="progress-step active"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+          </div>
+          <div class="content">
+            <div class="step-label">Étape 1 sur 7 · Identité</div>
+            <h2 class="step-question">Comment vous appelez-vous ?</h2>
+            <p class="step-help">Votre prénom apparaîtra sur votre profil. Soyez vrai, soyez vous-même.</p>
+            <div class="input-label">Prénom</div>
+            <input class="input-field" placeholder="Votre prénom" value="Marie" />
+            <div class="input-label">Date de naissance</div>
+            <input class="input-field" placeholder="JJ / MM / AAAA" value="14 mars 1994" />
+            <div class="input-label">Ville</div>
+            <input class="input-field" placeholder="Votre ville" value="Paris 11e" />
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn-primary" onclick="goTo('onboard-2')">Continuer</button>
+          </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- VIEW: ONBOARD STEP 2 - INTENTION                -->
+        <!-- =============================================== -->
+        <div class="view" id="onboard-2">
+          <div class="status-bar"><span>9:41</span><span>●●● ●</span></div>
+          <div class="app-header">
+            <span class="app-logo">ALMA</span>
+            <button class="back-btn" onclick="goTo('onboard-1')">← Retour</button>
+          </div>
+          <div class="onboard-progress">
+            <div class="progress-step active"></div>
+            <div class="progress-step active"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+          </div>
+          <div class="content">
+            <div class="step-label">Étape 2 · Intention</div>
+            <h2 class="step-question">Que cherchez-vous ?</h2>
+            <p class="step-help">Une seule réponse possible sur ALMA. Ce n'est pas un choix, c'est un engagement signé.</p>
+            <div class="intention-card" onclick="goTo('verify')">
+              <div class="intention-title">Une relation sérieuse,<br>pour le long terme</div>
+              <div class="intention-sub">Je m'engage à respecter cette intention et à honorer chaque échange dignement.</div>
+            </div>
+            <p class="intention-note">
+              ALMA est ouvert à toutes les orientations sexuelles. Nous accueillons celles et ceux qui cherchent du long terme. Les autres apps existent pour le reste.
+            </p>
+          </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- VIEW: VERIFICATION                              -->
+        <!-- =============================================== -->
+        <div class="view" id="verify">
+          <div class="status-bar"><span>9:41</span><span>●●● ●</span></div>
+          <div class="app-header">
+            <span class="app-logo">ALMA</span>
+            <button class="back-btn" onclick="goTo('onboard-2')">← Retour</button>
+          </div>
+          <div class="onboard-progress">
+            <div class="progress-step active"></div>
+            <div class="progress-step active"></div>
+            <div class="progress-step active"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+          </div>
+          <div class="content" style="text-align:center;">
+            <div class="step-label" style="text-align:center;">Étape 3 · Vérification</div>
+            <div class="verify-icon">ID</div>
+            <h2 class="step-question" style="text-align:center;">Prouvez<br>que vous êtes vous.</h2>
+            <p class="step-help" style="text-align:center;">Une pièce d'identité officielle et un selfie vivant. C'est obligatoire, c'est ce qui rend ALMA différent.</p>
+            <ul class="verify-checklist" style="text-align:left;">
+              <li>Photo de votre pièce d'identité</li>
+              <li>Vidéo selfie de 3 secondes</li>
+              <li>Validation sous 24 heures</li>
+              <li>Données supprimées après vérification</li>
+            </ul>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn-primary" onclick="goTo('values')">Commencer la vérification</button>
+          </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- VIEW: VALUES QUESTIONNAIRE                      -->
+        <!-- =============================================== -->
+        <div class="view" id="values">
+          <div class="status-bar"><span>9:41</span><span>●●● ●</span></div>
+          <div class="app-header">
+            <span class="app-logo">ALMA</span>
+            <button class="back-btn" onclick="goTo('verify')">← Retour</button>
+          </div>
+          <div class="onboard-progress">
+            <div class="progress-step active"></div>
+            <div class="progress-step active"></div>
+            <div class="progress-step active"></div>
+            <div class="progress-step active"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+          </div>
+          <div class="content">
+            <div class="step-label">Question 7 sur 30 · Valeurs</div>
+            <h2 class="step-question" style="font-size:22px;">Quelle place voulez-vous donner au travail dans votre vie ?</h2>
+
+            <div class="value-question" style="margin-top:30px;">
+              <div class="value-scale" id="scale1">
+                <div class="scale-dot" data-pos="1"></div>
+                <div class="scale-dot" data-pos="2"></div>
+                <div class="scale-dot selected" data-pos="3"></div>
+                <div class="scale-dot" data-pos="4"></div>
+                <div class="scale-dot" data-pos="5"></div>
+              </div>
+              <div class="scale-labels">
+                <span>Secondaire</span>
+                <span>Centrale</span>
+              </div>
+            </div>
+
+            <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--ink-mute); margin-top:30px; line-height:1.6;">
+              Il n'y a pas de bonne ou de mauvaise réponse. Cherchez seulement ce qui est vrai pour vous.
+            </p>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn-primary" onclick="goTo('profile-questions')">Question suivante</button>
+          </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- VIEW: PROFILE QUESTIONS                         -->
+        <!-- =============================================== -->
+        <div class="view" id="profile-questions">
+          <div class="status-bar"><span>9:41</span><span>●●● ●</span></div>
+          <div class="app-header">
+            <span class="app-logo">ALMA</span>
+            <button class="back-btn" onclick="goTo('values')">← Retour</button>
+          </div>
+          <div class="onboard-progress">
+            <div class="progress-step active"></div>
+            <div class="progress-step active"></div>
+            <div class="progress-step active"></div>
+            <div class="progress-step active"></div>
+            <div class="progress-step active"></div>
+            <div class="progress-step active"></div>
+            <div class="progress-step"></div>
+          </div>
+          <div class="content">
+            <div class="step-label">Étape 6 · Profondeur</div>
+            <h2 class="step-question" style="font-size:22px;">Choisissez 3 questions pour votre profil.</h2>
+            <p class="step-help">Elles seront visibles publiquement et serviront aux autres pour vous découvrir.</p>
+
+            <div class="profile-q-list">
+              <div class="profile-q-item selected" onclick="toggleQ(this)">
+                <div class="profile-q-prompt">— Sélectionnée —</div>
+                <div class="profile-q-text">Qu'est-ce qui m'a fait grandir cette année ?</div>
+              </div>
+              <div class="profile-q-item selected" onclick="toggleQ(this)">
+                <div class="profile-q-prompt">— Sélectionnée —</div>
+                <div class="profile-q-text">Ce que je cherche vraiment chez quelqu'un.</div>
+              </div>
+              <div class="profile-q-item selected" onclick="toggleQ(this)">
+                <div class="profile-q-prompt">— Sélectionnée —</div>
+                <div class="profile-q-text">Ce qui me fait pleurer au cinéma.</div>
+              </div>
+              <div class="profile-q-item" onclick="toggleQ(this)">
+                <div class="profile-q-prompt">— Disponible —</div>
+                <div class="profile-q-text">Mon dimanche idéal en cinq mots.</div>
+              </div>
+              <div class="profile-q-item" onclick="toggleQ(this)">
+                <div class="profile-q-prompt">— Disponible —</div>
+                <div class="profile-q-text">La chose pour laquelle je me battrais.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn-primary" onclick="goTo('home')">Finaliser mon inscription</button>
+          </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- VIEW: HOME - 3 PROFILES                         -->
+        <!-- =============================================== -->
+        <div class="view" id="home">
+          <div class="status-bar"><span>19:00</span><span>●●● ●</span></div>
+          <div class="app-header">
+            <span class="app-logo">ALMA</span>
+            <button class="menu-btn" onclick="goTo('own-profile')"><span></span><span></span></button>
+          </div>
+          <div class="content">
+            <div class="home-greeting">
+              <div class="greeting-day">Jeudi 23 mai</div>
+              <h2 class="greeting-text">Bonsoir Marie.<br><em>Trois personnes vous attendent.</em></h2>
+            </div>
+
+            <div class="profile-card" onclick="goTo('profile')">
+              <div class="profile-photo profile-photo-1">
+                <div class="availability-tag">Disponible</div>
+              </div>
+              <div class="profile-info">
+                <div class="profile-name-row">
+                  <span class="profile-name">Thomas</span>
+                  <span class="profile-age">34 ans</span>
+                </div>
+                <div class="profile-city">Paris 11e · 4 km</div>
+                <div class="profile-snippet">"Ce qui me fait pleurer au cinéma : les fins où les personnages se quittent en silence."</div>
+              </div>
+            </div>
+
+            <div class="profile-card" onclick="openModal('Adrien, 31 ans', 'Pour cette démo, le parcours détaillé est implémenté pour Thomas. Cliquez sur Thomas pour découvrir l\'expérience complète.')">
+              <div class="profile-photo profile-photo-2">
+                <div class="availability-tag">Disponible</div>
+              </div>
+              <div class="profile-info">
+                <div class="profile-name-row">
+                  <span class="profile-name">Adrien</span>
+                  <span class="profile-age">31 ans</span>
+                </div>
+                <div class="profile-city">Paris 9e · 6 km</div>
+                <div class="profile-snippet">"Ce qui m'a fait grandir cette année : apprendre à dire non sans me justifier."</div>
+              </div>
+            </div>
+
+            <div class="profile-card" onclick="openModal('Lucas, 36 ans', 'Pour cette démo, le parcours détaillé est implémenté pour Thomas. Cliquez sur Thomas pour découvrir l\'expérience complète.')">
+              <div class="profile-photo profile-photo-3">
+                <div class="availability-tag">Disponible</div>
+              </div>
+              <div class="profile-info">
+                <div class="profile-name-row">
+                  <span class="profile-name">Lucas</span>
+                  <span class="profile-age">36 ans</span>
+                </div>
+                <div class="profile-city">Paris 3e · 3 km</div>
+                <div class="profile-snippet">"Mon dimanche idéal en cinq mots : marche, livre, café, silence, ami."</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- VIEW: PROFILE DETAIL (Thomas)                   -->
+        <!-- =============================================== -->
+        <div class="view" id="profile">
+          <div class="status-bar"><span>19:02</span><span>●●● ●</span></div>
+          <div class="app-header">
+            <button class="back-btn" onclick="goTo('home')">← Retour</button>
+            <span class="app-logo">ALMA</span>
+            <span style="width:60px;"></span>
+          </div>
+          <div class="content" style="padding:0 0 100px;">
+            <div class="detail-hero profile-photo-1"></div>
+            <h1 class="detail-name">Thomas</h1>
+            <p class="detail-meta">34 ans · Paris 11e · Architecte</p>
+            <span class="verified-badge">Identité vérifiée</span>
+            <div class="detail-divider"></div>
+            <div class="detail-questions">
+              <div class="detail-question">
+                <div class="detail-q-prompt">Ce qui me fait pleurer au cinéma</div>
+                <div class="detail-q-text">Les fins où les personnages se quittent en silence, sans trop d'explications.</div>
+              </div>
+              <div class="detail-question">
+                <div class="detail-q-prompt">Ce qui m'a fait grandir cette année</div>
+                <div class="detail-q-text">J'ai appris à écouter sans préparer ma réponse pendant que l'autre parle.</div>
+              </div>
+              <div class="detail-question">
+                <div class="detail-q-prompt">Ce que je cherche vraiment</div>
+                <div class="detail-q-text">Quelqu'un avec qui le silence n'est pas un échec de la conversation.</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn-primary" onclick="goTo('schedule')">Je souhaite lui parler</button>
+            <button class="btn btn-secondary" onclick="goTo('home')">Passer pour cette fois</button>
+          </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- VIEW: SCHEDULE                                  -->
+        <!-- =============================================== -->
+        <div class="view" id="schedule">
+          <div class="status-bar"><span>19:05</span><span>●●● ●</span></div>
+          <div class="app-header">
+            <button class="back-btn" onclick="goTo('profile')">← Retour</button>
+            <span class="app-logo">ALMA</span>
+            <span style="width:60px;"></span>
+          </div>
+          <div class="content">
+            <h2 class="schedule-title">Thomas a accepté.<br>Quand voulez-vous lui parler ?</h2>
+            <p class="schedule-sub">Choisissez ensemble votre fenêtre de 30 minutes dans les 72 heures.</p>
+
+            <div class="time-slot selected" onclick="selectSlot(this)">
+              <div>
+                <div class="time-slot-date">Jeudi 23 mai · ce soir</div>
+                <div class="time-slot-hour">21:00 – 21:30</div>
+              </div>
+              <div class="time-slot-mark"></div>
+            </div>
+            <div class="time-slot" onclick="selectSlot(this)">
+              <div>
+                <div class="time-slot-date">Vendredi 24 mai</div>
+                <div class="time-slot-hour">12:30 – 13:00</div>
+              </div>
+              <div class="time-slot-mark"></div>
+            </div>
+            <div class="time-slot" onclick="selectSlot(this)">
+              <div>
+                <div class="time-slot-date">Vendredi 24 mai</div>
+                <div class="time-slot-hour">20:00 – 20:30</div>
+              </div>
+              <div class="time-slot-mark"></div>
+            </div>
+            <div class="time-slot" onclick="selectSlot(this)">
+              <div>
+                <div class="time-slot-date">Samedi 25 mai</div>
+                <div class="time-slot-hour">10:30 – 11:00</div>
+              </div>
+              <div class="time-slot-mark"></div>
+            </div>
+
+            <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--ink-mute); margin-top:20px; line-height:1.6;">
+              Une fois choisi, ce créneau devient un engagement. Manquer un rendez-vous sans prévenir compte comme un ghosting.
+            </p>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn-primary" onclick="goTo('waiting')">Confirmer 21:00 ce soir</button>
+          </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- VIEW: WAITING                                   -->
+        <!-- =============================================== -->
+        <div class="view" id="waiting">
+          <div class="status-bar"><span>20:55</span><span>●●● ●</span></div>
+          <div class="app-header">
+            <span class="app-logo">ALMA</span>
+            <button class="menu-btn"><span></span><span></span></button>
+          </div>
+          <div class="waiting-screen">
+            <div class="waiting-mark">⏱</div>
+            <h2 class="waiting-title">Votre rendez-vous<br>avec Thomas approche.</h2>
+            <p class="waiting-time">Dans <strong>5 minutes</strong></p>
+            <p class="waiting-note">
+              30 minutes pour faire connaissance.<br>
+              Prenez quelques instants pour vous installer.
+            </p>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn-primary" onclick="goTo('conversation'); startTimer();">Démarrer maintenant (démo)</button>
+          </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- VIEW: CONVERSATION                              -->
+        <!-- =============================================== -->
+        <div class="view" id="conversation">
+          <div class="status-bar"><span>21:14</span><span>●●● ●</span></div>
+          <div class="conv-header">
+            <div class="conv-user">
+              <div class="conv-avatar"></div>
+              <div>
+                <div class="conv-name">Thomas</div>
+                <div class="conv-status">En conversation</div>
+              </div>
+            </div>
+            <div class="conv-timer-wrap">
+              <div class="conv-timer-label">Reste</div>
+              <div class="conv-timer" id="timer">16:23</div>
+            </div>
+          </div>
+          <div class="conv-body" id="convBody">
+            <div class="message them">Bonsoir Marie. J'ai relu votre réponse sur le silence comme non-échec de la conversation. Ça m'a marqué.</div>
+            <div class="message me">Bonsoir Thomas. Merci. C'est quelque chose que j'apprends tard, après avoir longtemps confondu mots et lien.</div>
+            <div class="message them">C'est exactement ça. On grandit en remplissant le silence. On mûrit en l'habitant.</div>
+            <div class="message me">Très joliment dit. Vous écrivez professionnellement ?</div>
+            <div class="message them">Non, je dessine. Mais on parle aussi en dessinant je crois.</div>
+          </div>
+          <div class="conv-input-area">
+            <input class="conv-input" id="convInput" placeholder="Écrivez votre message…" onkeypress="if(event.key==='Enter') sendMessage()" />
+            <button class="send-btn" onclick="sendMessage()">→</button>
+          </div>
+
+          <!-- IA Alert -->
+          <div class="ia-alert" id="iaAlert" style="display:none;">
+            <div class="ia-tag">— Suggestion d'ALMA —</div>
+            <div class="ia-text">Ce message peut être perçu comme dur. Vous pouvez l'envoyer tel quel, ou prendre un instant pour le reformuler. Vous restez seul maître.</div>
+            <div class="ia-actions">
+              <button class="ia-btn primary" onclick="closeIAAlert()">Je reformule</button>
+              <button class="ia-btn secondary" onclick="closeIAAlert()">Envoyer quand même</button>
+            </div>
+          </div>
+
+          <div class="btn-stack" style="padding:0 28px 14px;">
+            <button class="btn btn-secondary" onclick="goTo('end-conv')" style="font-size:10px;">Simuler la fin du timer</button>
+          </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- VIEW: END CONVERSATION                          -->
+        <!-- =============================================== -->
+        <div class="view" id="end-conv">
+          <div class="status-bar"><span>21:30</span><span>●●● ●</span></div>
+          <div class="app-header">
+            <span class="app-logo">ALMA</span>
+            <span></span>
+          </div>
+          <div class="end-screen">
+            <div class="end-icon">∞</div>
+            <h2 class="end-title">Votre conversation<br>de 30 minutes<br>est terminée.</h2>
+            <p class="end-text">Souhaitez-vous continuer demain avec Thomas par un appel vidéo ?</p>
+
+            <div class="choice-card primary" onclick="goTo('call')">
+              <div class="choice-title">Oui, je veux continuer demain</div>
+              <div class="choice-sub">Un appel vidéo sera programmé si Thomas le souhaite aussi.</div>
+            </div>
+            <div class="choice-card" onclick="openModal('Échange clos', 'Un message de courtoisie est envoyé à Thomas. Vous reprenez votre cycle quotidien dès demain.')">
+              <div class="choice-title">Je préfère en rester là</div>
+              <div class="choice-sub">Vous remercierez Thomas avec un message courtois.</div>
+            </div>
+            <div class="choice-card" onclick="openModal('Prolongation', 'Si Thomas est d\'accord, vous prolongez de 15 minutes. Une seule fois possible par session.')">
+              <div class="choice-title">Prolonger de 15 minutes</div>
+              <div class="choice-sub">Disponible une seule fois si vous êtes tous les deux d'accord.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- VIEW: CALL                                      -->
+        <!-- =============================================== -->
+        <div class="view" id="call">
+          <div class="status-bar dark"><span>9:41</span><span>●●● ●</span></div>
+          <div class="call-screen">
+            <div class="call-content">
+              <div class="call-status">— Appel en cours —</div>
+              <div class="call-avatar-large"></div>
+              <div class="call-name">Thomas</div>
+              <div class="call-duration" id="callTimer">12:47</div>
+              <div class="call-controls">
+                <button class="call-btn" onclick="openModal('Micro', 'Micro coupé.')">M</button>
+                <button class="call-btn end" onclick="goTo('pack')">×</button>
+                <button class="call-btn" onclick="openModal('Vidéo', 'Caméra activée.')">V</button>
+              </div>
+              <p style="font-family:'Inter', sans-serif; font-size:9px; letter-spacing:0.2em; color:rgba(244,239,230,0.4); margin-top:30px; text-align:center;">
+                Appuyez sur × pour passer à l'écran suivant
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- VIEW: PACK RENCONTRE                            -->
+        <!-- =============================================== -->
+        <div class="view" id="pack">
+          <div class="status-bar"><span>9:41</span><span>●●● ●</span></div>
+          <div class="app-header">
+            <button class="back-btn" onclick="goTo('home')">← Choisir un autre lieu</button>
+            <span class="app-logo">ALMA</span>
+            <span></span>
+          </div>
+          <div class="content" style="padding:0 0 100px;">
+            <div class="pack-hero">
+              <div class="pack-price">19€</div>
+            </div>
+            <div class="pack-detail-section">
+              <div class="pack-resto">Café Marlette</div>
+              <div class="pack-type">Brunch & Café · Paris 9e</div>
+
+              <div class="pack-detail">
+                <span class="pack-detail-label">Date</span>
+                <span class="pack-detail-value">Samedi 25 mai</span>
+              </div>
+              <div class="pack-detail">
+                <span class="pack-detail-label">Horaire</span>
+                <span class="pack-detail-value">11:00</span>
+              </div>
+              <div class="pack-detail">
+                <span class="pack-detail-label">Distance</span>
+                <span class="pack-detail-value">8 min à pied</span>
+              </div>
+              <div class="pack-detail">
+                <span class="pack-detail-label">Personnel formé</span>
+                <span class="pack-detail-value" style="color:var(--success);">✓ Oui</span>
+              </div>
+
+              <div class="pack-menu">
+                <div class="menu-title">— Menu Premier Rendez-vous —</div>
+                <div class="menu-item">Café ou thé d'origine</div>
+                <div class="menu-item">Brioche maison & confiture artisanale</div>
+                <div class="menu-item">Œufs brouillés au saumon fumé</div>
+                <div class="menu-item">Pâtisserie du jour</div>
+              </div>
+
+              <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13px; color:var(--ink-mute); margin-top:24px; line-height:1.6;">
+                Le personnel est formé à veiller discrètement sur les premières rencontres. Un signal de détresse codé est disponible.
+              </p>
+            </div>
+          </div>
+          <div class="btn-stack">
+            <button class="btn btn-primary" onclick="goTo('post')">Réserver pour 19€</button>
+            <button class="btn btn-secondary" onclick="goTo('sos')" style="font-size:10px;">Voir le bouton SOS (démo)</button>
+          </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- VIEW: SOS                                       -->
+        <!-- =============================================== -->
+        <div class="view" id="sos">
+          <div class="status-bar dark"><span>11:24</span><span>●●● ●</span></div>
+          <div class="sos-content">
+            <div class="sos-label">Procédure de sécurité activée</div>
+            <div class="sos-icon">!</div>
+            <h2 class="sos-title">Voulez-vous<br>déclencher l'alerte ?</h2>
+            <p class="sos-text">Votre position sera partagée avec notre équipe de modération joignable 24/7. Votre contact d'urgence sera prévenu immédiatement.</p>
+            <button class="sos-action" onclick="openModal('Alerte déclenchée', 'Votre position est en cours de partage. L\'équipe ALMA vous contacte dans 60 secondes maximum.')">Déclencher l'alerte</button>
+            <button class="sos-cancel" onclick="goTo('pack')">Annuler</button>
+          </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- VIEW: POST RENCONTRE                            -->
+        <!-- =============================================== -->
+        <div class="view" id="post">
+          <div class="status-bar"><span>9:41</span><span>●●● ●</span></div>
+          <div class="app-header">
+            <span class="app-logo">ALMA</span>
+            <span></span>
+          </div>
+          <div class="post-content">
+            <h2 class="post-question">Comment s'est passée votre rencontre avec Thomas ?</h2>
+            <p class="post-sub">Votre réponse reste confidentielle. Elle aide ALMA à mieux vous comprendre.</p>
+
+            <div class="choice-card primary" onclick="openModal('Bravo !', 'Vous pouvez activer le mode pause couple pour suspendre votre compte gratuitement pendant 3 mois. Notre succès, c\'est votre départ.')">
+              <div class="choice-title">Très bien, je veux continuer</div>
+              <div class="choice-sub">Vous pourrez activer le mode pause couple si vous souhaitez vous retirer d'ALMA ensemble.</div>
+            </div>
+            <div class="choice-card" onclick="goTo('home')">
+              <div class="choice-title">Bien mais je ne continue pas</div>
+              <div class="choice-sub">Vous reprendrez votre cycle quotidien dès demain.</div>
+            </div>
+            <div class="choice-card" onclick="openModal('Signalement reçu', 'Un modérateur prend contact avec vous dans l\'heure. Vos informations sont en sécurité.')">
+              <div class="choice-title">Mal, je veux signaler un problème</div>
+              <div class="choice-sub">Un modérateur prendra contact avec vous dans l'heure.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- VIEW: OWN PROFILE                               -->
+        <!-- =============================================== -->
+        <div class="view" id="own-profile">
+          <div class="status-bar"><span>9:41</span><span>●●● ●</span></div>
+          <div class="app-header">
+            <button class="back-btn" onclick="goTo('home')">← Retour</button>
+            <span class="app-logo">ALMA</span>
+            <span></span>
+          </div>
+          <div class="own-profile">
+            <div class="own-photo"></div>
+            <div class="own-name">Marie Lavergne</div>
+            <div class="own-meta">32 ans · Paris 11e</div>
+            <span class="verified-badge" style="margin-left:0;">Identité vérifiée</span>
+
+            <div class="settings-list">
+              <div class="settings-item" onclick="openModal('Créneau quotidien', 'Vous recevez vos 3 profils chaque jour à 19:00. Modifiable une fois par semaine.')">
+                <div class="settings-label">Créneau quotidien</div>
+                <div class="settings-value">19:00</div>
+              </div>
+              <div class="settings-item" onclick="openModal('Préférences', 'Hommes · 28-38 ans · 30 km · Sans préférence de taille. Filtre physique activé.')">
+                <div class="settings-label">Préférences physiques</div>
+                <div class="settings-value">Modifier</div>
+              </div>
+              <div class="settings-item" onclick="goTo('profile-questions')">
+                <div class="settings-label">Mes trois réponses</div>
+                <div class="settings-value">Modifier</div>
+              </div>
+              <div class="settings-item" onclick="openModal('Abonnement', 'Engagement annuel · 9,90€/mois · Prochain prélèvement le 14 mai 2027.')">
+                <div class="settings-label">Abonnement</div>
+                <div class="settings-value">9,90€/mois</div>
+              </div>
+              <div class="settings-item" onclick="openModal('Contact d\'urgence', 'Sophie Lavergne (sœur) · 06 12 34 56 78')">
+                <div class="settings-label">Contact d'urgence</div>
+                <div class="settings-value">Configuré</div>
+              </div>
+              <div class="settings-item" onclick="openModal('Charte ALMA', 'Vous avez signé la charte d\'engagement le 12 mars 2026. Disponible à tout moment.')">
+                <div class="settings-label">Charte d'engagement</div>
+                <div class="settings-value">Signée</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- =============================================== -->
+        <!-- MODAL                                           -->
+        <!-- =============================================== -->
+        <div class="modal-backdrop" id="modal" onclick="closeModal(event)">
+          <div class="modal" onclick="event.stopPropagation()">
+            <h3 class="modal-title" id="modalTitle">Titre</h3>
+            <p class="modal-text" id="modalText">Texte</p>
+            <button class="modal-close" onclick="closeModal()">Compris</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ============== NAVIGATION ==============
+  function goTo(viewId) {
+    const views = document.querySelectorAll('.view');
+    views.forEach(v => v.classList.remove('active'));
+    const target = document.getElementById(viewId);
+    if (target) {
+      target.classList.add('active');
+      // Reset scroll for content elements
+      const content = target.querySelector('.content, .conv-body');
+      if (content) content.scrollTop = 0;
+    }
+    // Hide IA alert when navigating away
+    const iaAlert = document.getElementById('iaAlert');
+    if (iaAlert && viewId !== 'conversation') iaAlert.style.display = 'none';
+  }
+
+  // ============== MODAL ==============
+  function openModal(title, text) {
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalText').textContent = text;
+    document.getElementById('modal').classList.add('show');
+  }
+
+  function closeModal(event) {
+    if (event && event.target.classList && !event.target.classList.contains('modal-backdrop') && event.type === 'click') {
+      // Only close on backdrop click or button click
+      if (!event.target.classList.contains('modal-close')) return;
+    }
+    document.getElementById('modal').classList.remove('show');
+  }
+
+  // ============== VALUES SCALE ==============
+  document.querySelectorAll('.scale-dot').forEach(dot => {
+    dot.addEventListener('click', function(e) {
+      const scale = this.parentElement;
+      scale.querySelectorAll('.scale-dot').forEach(d => d.classList.remove('selected'));
+      this.classList.add('selected');
+    });
+  });
+
+  // ============== PROFILE QUESTIONS ==============
+  function toggleQ(el) {
+    const selected = document.querySelectorAll('.profile-q-item.selected');
+    if (el.classList.contains('selected')) {
+      el.classList.remove('selected');
+      el.querySelector('.profile-q-prompt').textContent = '— Disponible —';
+    } else {
+      if (selected.length >= 3) {
+        openModal('Trois maximum', 'Vous avez déjà sélectionné trois questions. Retirez-en une pour en choisir une autre.');
+        return;
+      }
+      el.classList.add('selected');
+      el.querySelector('.profile-q-prompt').textContent = '— Sélectionnée —';
+    }
+  }
+
+  // ============== TIME SLOTS ==============
+  function selectSlot(el) {
+    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // ============== CONVERSATION ==============
+  let timerInterval = null;
+  let timerMinutes = 16;
+  let timerSeconds = 23;
+  let messageCount = 0;
+
+  function startTimer() {
+    clearInterval(timerInterval);
+    timerMinutes = 16;
+    timerSeconds = 23;
+    updateTimer();
+    timerInterval = setInterval(() => {
+      timerSeconds--;
+      if (timerSeconds < 0) {
+        timerSeconds = 59;
+        timerMinutes--;
+      }
+      if (timerMinutes < 0) {
+        clearInterval(timerInterval);
+        return;
+      }
+      updateTimer();
+    }, 1000);
+  }
+
+  function updateTimer() {
+    const timerEl = document.getElementById('timer');
+    if (timerEl) {
+      timerEl.textContent = `${String(timerMinutes).padStart(2, '0')}:${String(timerSeconds).padStart(2, '0')}`;
+    }
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('convInput');
+    const body = document.getElementById('convBody');
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    // Simple aggressive content detection for demo
+    const aggressiveWords = ['stupide', 'idiot', 'nul', 'merde', 'con ', 'pute', 'salope', 'connard', 'putain', 'à chier'];
+    const lowerMsg = msg.toLowerCase();
+    const isAggressive = aggressiveWords.some(word => lowerMsg.includes(word));
+
+    if (isAggressive) {
+      document.getElementById('iaAlert').style.display = 'block';
+      return;
+    }
+
+    // Add message
+    const msgEl = document.createElement('div');
+    msgEl.className = 'message me';
+    msgEl.textContent = msg;
+    body.appendChild(msgEl);
+    input.value = '';
+    body.scrollTop = body.scrollHeight;
+    messageCount++;
+
+    // Simulate reply after 2 seconds
+    setTimeout(() => {
+      const replies = [
+        "C'est intéressant. Continuez.",
+        "Vous savez, j'allais justement vous demander la même chose.",
+        "C'est rare qu'on me dise ça aussi simplement.",
+        "Cela me rappelle quelque chose que j'ai lu récemment.",
+        "Je crois que je commence à comprendre comment vous fonctionnez."
+      ];
+      const reply = replies[messageCount % replies.length];
+      const replyEl = document.createElement('div');
+      replyEl.className = 'message them';
+      replyEl.textContent = reply;
+      body.appendChild(replyEl);
+      body.scrollTop = body.scrollHeight;
+    }, 1800);
+  }
+
+  function showIAAlert() {
+    goTo('conversation');
+    setTimeout(() => {
+      document.getElementById('iaAlert').style.display = 'block';
+    }, 300);
+  }
+
+  function closeIAAlert() {
+    document.getElementById('iaAlert').style.display = 'none';
+    document.getElementById('convInput').value = '';
+  }
+window.addEventListener("message", function(e) { if (e.data && e.data.action === "goTo" && e.data.viewId) { if (typeof goTo === "function") goTo(e.data.viewId); } else if (e.data && e.data.action === "showIAAlert" && typeof showIAAlert === "function") { showIAAlert(); } });
+
+// Mode embed : si l'URL contient ?embed=true, on cache le panneau gauche et on adapte le fond
+(function() {
+  if (window.location.search.indexOf('embed=true') !== -1) {
+    var style = document.createElement('style');
+    style.textContent = `
+      body {
+        background: var(--cream) !important;
+        background-image: none !important;
+        padding: 0 !important;
+        min-height: 100vh !important;
+      }
+      .demo-info { display: none !important; }
+      .demo-wrapper {
+        gap: 0 !important;
+        justify-content: center !important;
+      }
+      .phone-container {
+        width: 100% !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+})();
+</script>
+
+</body>
+</html>
