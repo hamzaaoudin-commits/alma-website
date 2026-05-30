@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prototype interactif — ALMA</title>
+<meta name="description" content="Essayez le prototype interactif d'ALMA avant son lancement. Naviguez entre les écrans depuis le menu à gauche, l'application se met à jour à droite en temps réel.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/pages.css">
+
+<style>
+.prototype-hero {
+  padding: 9rem 2rem 3rem;
+  text-align: center;
+  background: var(--cream);
+}
+
+.prototype-workspace {
+  background: var(--cream);
+  padding: 2rem 2rem 5rem;
+  min-height: 80vh;
+}
+
+.prototype-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* MENU GAUCHE */
+.prototype-menu {
+  background: var(--cream-soft);
+  border: 1px solid var(--rule-soft);
+  border-radius: 8px;
+  padding: 1.5rem;
+  position: sticky;
+  top: 100px;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+}
+
+.prototype-menu-title {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  font-weight: 600;
+  padding: 0.5rem 1rem 1rem;
+  border-bottom: 1px solid var(--rule-soft);
+  margin-bottom: 0.75rem;
+}
+
+.prototype-menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.prototype-menu-item {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-left: 2px solid transparent;
+}
+
+.prototype-menu-item:hover {
+  background: var(--cream-deep);
+  color: var(--ink);
+}
+
+.prototype-menu-item.active {
+  background: var(--cream-deep);
+  color: var(--burgundy);
+  border-left-color: var(--burgundy);
+  font-weight: 500;
+}
+
+.prototype-menu-item-num {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  color: var(--ink-faint);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  min-width: 20px;
+}
+
+.prototype-menu-item.active .prototype-menu-item-num {
+  color: var(--burgundy);
+}
+
+/* IPHONE FRAME DROITE — SUPPRIMÉ (le prototype a déjà son propre iPhone) */
+.prototype-phone-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 1rem;
+}
+
+.prototype-phone-screen {
+  width: 100%;
+  max-width: 480px;
+  height: 800px;
+  border: none;
+  background: var(--cream);
+  display: block;
+}
+
+.prototype-fullscreen-link {
+  display: inline-block;
+  margin-top: 2rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  font-weight: 500;
+  text-align: center;
+}
+
+.prototype-fullscreen-link:hover { color: var(--burgundy-deep); }
+
+.prototype-help {
+  max-width: 700px;
+  margin: 4rem auto 0;
+  padding: 2rem;
+  background: var(--cream-deep);
+  border-left: 3px solid var(--burgundy);
+  text-align: left;
+}
+
+.prototype-help-title {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.prototype-help-text {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+/* RESPONSIVE */
+@media (max-width: 968px) {
+  .prototype-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .prototype-menu {
+    position: static;
+    max-height: 300px;
+  }
+
+  .prototype-phone {
+    width: 100%;
+    max-width: 340px;
+    padding: 10px;
+    border-radius: 36px;
+  }
+
+  .prototype-phone-screen {
+    border-radius: 26px;
+  }
+
+  .prototype-phone-notch {
+    width: 90px;
+    height: 22px;
+    top: 16px;
+  }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo">ALMA</a>
+  <div class="nav-links">
+    <a href="/manifeste.html" class="nav-link">Manifeste</a>
+    <a href="/vision.html" class="nav-link">Vision</a>
+    <a href="/produit.html" class="nav-link">Produit</a>
+    <a href="/fondateur.html" class="nav-link">Fondateur</a>
+    <a href="/presse.html" class="nav-link">Presse</a>
+    <a href="/investisseurs.html" class="nav-link">Investisseurs</a>
+    <a href="/#waitlist" class="nav-cta">Rejoindre</a>
+  </div>
+  <button class="nav-mobile-toggle" id="nav-mobile-toggle" aria-label="Menu">☰</button>
+</nav>
+
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <span class="nav-mobile-close" id="nav-mobile-close">×</span>
+  <a href="/manifeste.html" class="nav-link">Manifeste</a>
+  <a href="/vision.html" class="nav-link">Vision</a>
+  <a href="/produit.html" class="nav-link">Produit</a>
+  <a href="/fondateur.html" class="nav-link">Fondateur</a>
+  <a href="/presse.html" class="nav-link">Presse</a>
+  <a href="/investisseurs.html" class="nav-link">Investisseurs</a>
+  <a href="/#waitlist" class="nav-cta">Rejoindre</a>
+</div>
+
+<section class="prototype-hero">
+  <div class="container">
+    <div class="eyebrow">— Prototype interactif —</div>
+    <h1 class="title-section mt-4">
+      Essayez ALMA <span class="italic">avant tout le monde.</span>
+    </h1>
+    <div class="divider-line"></div>
+    <p class="body-text mt-6" style="max-width: 600px; margin-left: auto; margin-right: auto;">
+      Sélectionnez un écran à gauche, l'application se met à jour à droite. Naviguez librement à votre rythme.
+    </p>
+  </div>
+</section>
+
+<section class="prototype-workspace">
+  <div class="prototype-layout">
+
+    <!-- MENU DE NAVIGATION GAUCHE -->
+    <aside class="prototype-menu">
+      <div class="prototype-menu-title">— Écrans de l'application —</div>
+      <ul class="prototype-menu-list">
+        <li class="prototype-menu-item active" data-view="welcome"><span class="prototype-menu-item-num">01</span>Écran d'accueil</li>
+        <li class="prototype-menu-item" data-view="onboard-1"><span class="prototype-menu-item-num">02</span>Inscription</li>
+        <li class="prototype-menu-item" data-view="verify"><span class="prototype-menu-item-num">03</span>Vérification d'identité</li>
+        <li class="prototype-menu-item" data-view="values"><span class="prototype-menu-item-num">04</span>Questionnaire de valeurs</li>
+        <li class="prototype-menu-item" data-view="home"><span class="prototype-menu-item-num">05</span>Mes 3 profils du jour</li>
+        <li class="prototype-menu-item" data-view="profile"><span class="prototype-menu-item-num">06</span>Profil détaillé</li>
+        <li class="prototype-menu-item" data-view="schedule"><span class="prototype-menu-item-num">07</span>Programmer un échange</li>
+        <li class="prototype-menu-item" data-view="waiting"><span class="prototype-menu-item-num">08</span>Avant le rendez-vous</li>
+        <li class="prototype-menu-item" data-view="conversation"><span class="prototype-menu-item-num">09</span>Conversation 30 min</li>
+        <li class="prototype-menu-item" data-action="showIAAlert"><span class="prototype-menu-item-num">10</span>Voir l'alerte IA</li>
+        <li class="prototype-menu-item" data-view="end-conv"><span class="prototype-menu-item-num">11</span>Fin de conversation</li>
+        <li class="prototype-menu-item" data-view="call"><span class="prototype-menu-item-num">12</span>Appel vidéo</li>
+        <li class="prototype-menu-item" data-view="pack"><span class="prototype-menu-item-num">13</span>Pack Rencontre</li>
+        <li class="prototype-menu-item" data-view="sos"><span class="prototype-menu-item-num">14</span>Bouton SOS</li>
+        <li class="prototype-menu-item" data-view="post"><span class="prototype-menu-item-num">15</span>Post-rencontre</li>
+        <li class="prototype-menu-item" data-view="own-profile"><span class="prototype-menu-item-num">16</span>Mon profil</li>
+      </ul>
+    </aside>
+
+    <!-- IPHONE A DROITE -->
+    <div class="prototype-phone-container">
+      <div>
+        <iframe id="prototype-iframe" src="/assets/alma-prototype.html?embed=true" class="prototype-phone-screen" title="Prototype ALMA"></iframe>
+        <div style="text-align: center;">
+          <a href="/assets/alma-prototype.html" target="_blank" class="prototype-fullscreen-link">Ouvrir en plein écran ↗</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="prototype-help">
+    <div class="prototype-help-title">— Conseil de navigation —</div>
+    <p class="prototype-help-text">
+      Cliquez sur un écran dans le menu de gauche pour l'afficher instantanément à droite. Vous pouvez aussi interagir directement avec l'application (saisir du texte, cliquer sur les boutons) pour vivre l'expérience complète.
+    </p>
+  </div>
+</section>
+
+<div class="contact-block">
+  <h3>Ce que vous venez de tester sera bientôt réel.</h3>
+  <p>Inscrivez-vous sur la liste d'attente pour être parmi les premiers utilisateurs d'ALMA à Paris en 2026.</p>
+  <a href="/#waitlist" class="btn-primary">Rejoindre la liste d'attente</a>
+</div>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div>
+      <div class="footer-brand-mark">ALMA</div>
+      <div class="footer-brand-tag">Quelqu'un, pas quelque chose.</div>
+      <p class="footer-brand-text">L'application de rencontre qui rend les gens à la vie réelle. Lancement Paris 2026.</p>
+    </div>
+    <div>
+      <h4 class="footer-section-title">Découvrir</h4>
+      <div class="footer-links">
+        <a href="/manifeste.html" class="footer-link">Manifeste</a>
+        <a href="/vision.html" class="footer-link">Vision</a>
+        <a href="/produit.html" class="footer-link">Produit</a>
+        <a href="/fondateur.html" class="footer-link">Fondateur</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="footer-section-title">Contact</h4>
+      <div class="footer-links">
+        <a href="/presse.html" class="footer-link">Presse</a>
+        <a href="/investisseurs.html" class="footer-link">Investisseurs</a>
+        <a href="mailto:hello@alma.app" class="footer-link">hello@alma.app</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="footer-section-title">Suivre</h4>
+      <div class="footer-links">
+        <a href="#" class="footer-link">LinkedIn</a>
+        <a href="#" class="footer-link">Instagram</a>
+        <a href="#" class="footer-link">Newsletter</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-credit">© 2026 ALMA — Tous droits réservés</div>
+    <div class="footer-tagline">— Quelqu'un, pas quelque chose. —</div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script>
+(function() {
+  const iframe = document.getElementById('prototype-iframe');
+  const menuItems = document.querySelectorAll('.prototype-menu-item');
+
+  menuItems.forEach(item => {
+    item.addEventListener('click', () => {
+      menuItems.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+
+      const viewId = item.getAttribute('data-view');
+      const action = item.getAttribute('data-action');
+
+      if (action === 'showIAAlert') {
+        iframe.contentWindow.postMessage({ action: 'showIAAlert' }, '*');
+      } else if (viewId) {
+        iframe.contentWindow.postMessage({ action: 'goTo', viewId: viewId }, '*');
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
