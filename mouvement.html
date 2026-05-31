@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mouvement — ALMA</title>
+<meta name="description" content="ALMA n'est pas qu'une application. C'est un mouvement pour réparer une génération. Rejoignez-le.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/pages.css">
+
+<style>
+.commitments-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.commitment {
+  padding: 2rem;
+  background: var(--cream-soft);
+  border-left: 3px solid var(--gold);
+}
+
+.commitment-num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 200;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+
+.commitment-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+}
+
+.commitment-text {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.join-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.join-action {
+  background: var(--cream-soft);
+  padding: 2.5rem;
+  border-left: 3px solid var(--burgundy);
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition-base);
+}
+
+.join-action:hover {
+  border-left-width: 5px;
+  padding-left: 2.6rem;
+}
+
+.join-action-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.join-action-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.join-action-text {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.join-action-cta {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+}
+
+.join-action-cta::after {
+  content: "→";
+  transition: var(--transition-base);
+}
+
+.join-action:hover .join-action-cta::after {
+  transform: translateX(4px);
+}
+
+.testimonials-placeholder {
+  max-width: 800px;
+  margin: 3rem auto;
+  text-align: center;
+  padding: 4rem 2rem;
+  border: 1px dashed var(--rule);
+  background: var(--cream-soft);
+}
+
+.testimonials-placeholder-text {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--ink-mute);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .commitments-grid, .join-actions {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo">ALMA</a>
+  <div class="nav-links">
+    <a href="/manifeste.html" class="nav-link">Manifeste</a>
+    <a href="/vision.html" class="nav-link">Vision</a>
+    <a href="/produit.html" class="nav-link">Produit</a>
+    <a href="/mouvement.html" class="nav-link active">Mouvement</a>
+    <a href="/securite.html" class="nav-link">Sécurité</a>
+    <a href="/fondateur.html" class="nav-link">Fondateur</a>
+    <a href="/presse.html" class="nav-link">Presse</a>
+    <a href="/investisseurs.html" class="nav-link">Investisseurs</a>
+    <a href="/#waitlist" class="nav-cta">Rejoindre</a>
+  </div>
+  <button class="nav-mobile-toggle" id="nav-mobile-toggle" aria-label="Menu">☰</button>
+</nav>
+
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <span class="nav-mobile-close" id="nav-mobile-close">×</span>
+  <a href="/manifeste.html" class="nav-link">Manifeste</a>
+  <a href="/vision.html" class="nav-link">Vision</a>
+  <a href="/produit.html" class="nav-link">Produit</a>
+  <a href="/mouvement.html" class="nav-link">Mouvement</a>
+  <a href="/securite.html" class="nav-link">Sécurité</a>
+  <a href="/fondateur.html" class="nav-link">Fondateur</a>
+  <a href="/presse.html" class="nav-link">Presse</a>
+  <a href="/investisseurs.html" class="nav-link">Investisseurs</a>
+  <a href="/#waitlist" class="nav-cta">Rejoindre</a>
+</div>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-eyebrow eyebrow">— Le mouvement —</div>
+    <h1 class="page-hero-title">
+      ALMA n'est pas qu'une application. <span class="italic">C'est un mouvement.</span>
+    </h1>
+    <p class="page-hero-subtitle">
+      Pour celles et ceux qui pensent que notre génération mérite mieux que ce qu'on lui a construit. Pour ceux qui veulent récupérer leur intimité.
+    </p>
+  </div>
+</section>
+
+<div class="text-block">
+  <p class="lead">
+    Une application ne change pas une époque. Un mouvement, peut-être. Voilà pourquoi ALMA n'est pas qu'un produit. C'est une tentative culturelle, portée par toutes celles et ceux qui veulent réparer ce que le numérique a cassé dans notre rapport à l'autre.
+  </p>
+
+  <h2>Ce que nous portons publiquement</h2>
+
+  <p>
+    Au-delà de l'application elle-même, ALMA assume une voix. Une position critique, claire, parfois inconfortable. Nous pensons que le silence n'est pas neutre face à un système qui détruit notre capacité à aimer.
+  </p>
+
+  <p>
+    Voici les engagements publics qui structurent notre action.
+  </p>
+</div>
+
+<section class="section section-cream">
+  <div class="container">
+    <div class="commitments-grid">
+      <div class="commitment observe">
+        <div class="commitment-num">01</div>
+        <h3 class="commitment-title">Transparence radicale</h3>
+        <p class="commitment-text">
+          Nous publierons trimestriellement nos chiffres réels : utilisateurs, rétention, couples formés, incidents modérés, suites judiciaires. Sans embellissement. Sans omission.
+        </p>
+      </div>
+      <div class="commitment observe">
+        <div class="commitment-num">02</div>
+        <h3 class="commitment-title">Coopération judiciaire</h3>
+        <p class="commitment-text">
+          Aucune complaisance avec les comportements violents ou abusifs. Coopération systématique avec les forces de l'ordre et la justice française pour tout signalement grave.
+        </p>
+      </div>
+      <div class="commitment observe">
+        <div class="commitment-num">03</div>
+        <h3 class="commitment-title">Refus de la publicité</h3>
+        <p class="commitment-text">
+          Aucune publicité dans ALMA, jamais, sous aucune forme. Pas de partenaires commerciaux dans le produit. Notre indépendance économique est notre indépendance morale.
+        </p>
+      </div>
+      <div class="commitment observe">
+        <div class="commitment-num">04</div>
+        <h3 class="commitment-title">Pas de revente de données</h3>
+        <p class="commitment-text">
+          Vos données ne seront jamais vendues, partagées, ou monétisées auprès de tiers. Hébergement en Union européenne. Chiffrement de bout en bout. Effacement en deux clics.
+        </p>
+      </div>
+      <div class="commitment observe">
+        <div class="commitment-num">05</div>
+        <h3 class="commitment-title">Voix publique assumée</h3>
+        <p class="commitment-text">
+          Nous prendrons position sur les enjeux de société liés à notre champ : harcèlement, violences, santé mentale, fracture homme-femme, régulation des plateformes. Même quand cela dérange.
+        </p>
+      </div>
+      <div class="commitment observe">
+        <div class="commitment-num">06</div>
+        <h3 class="commitment-title">Comité éthique indépendant</h3>
+        <p class="commitment-text">
+          Un comité externe composé de sociologues, juristes et professionnels de la santé mentale supervisera nos pratiques. Avec un droit de regard public sur nos décisions structurantes.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="text-block">
+  <h2>Comment rejoindre le mouvement</h2>
+
+  <p>
+    Le mouvement n'est pas réservé à ceux qui utiliseront ALMA. Il est ouvert à toutes celles et ceux qui partagent le diagnostic et veulent participer, à leur manière, à la réparation.
+  </p>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="join-actions">
+      <div class="join-action observe">
+        <div class="join-action-eyebrow">— 01 —</div>
+        <h3 class="join-action-title">Rejoindre la liste d'attente</h3>
+        <p class="join-action-text">
+          Le geste le plus simple, et le plus utile. Plus la liste grandit, plus la presse s'intéresse, plus les investisseurs prennent au sérieux, plus l'élan se construit. Vous serez prévenu·e dès l'ouverture sur votre ville.
+        </p>
+        <a href="/#waitlist" class="join-action-cta">S'inscrire</a>
+      </div>
+
+      <div class="join-action observe">
+        <div class="join-action-eyebrow">— 02 —</div>
+        <h3 class="join-action-title">Co-signer le manifeste</h3>
+        <p class="join-action-text">
+          Si vous êtes une voix publique (chercheur·e, écrivain·e, journaliste, entrepreneur·e, artiste) et que le manifeste vous parle, vous pouvez le co-signer. Votre signature apparaîtra publiquement à nos côtés.
+        </p>
+        <a href="mailto:hello@alma.app?subject=Co-signature du manifeste ALMA" class="join-action-cta">Nous écrire</a>
+      </div>
+
+      <div class="join-action observe">
+        <div class="join-action-eyebrow">— 03 —</div>
+        <h3 class="join-action-title">Devenir ambassadeur·rice</h3>
+        <p class="join-action-text">
+          Pour les premières villes de lancement, nous recrutons une petite communauté de 50 ambassadeur·rices qui porteront ALMA dans leur réseau. Conditions privilégiées, événements, accès anticipé.
+        </p>
+        <a href="mailto:hello@alma.app?subject=Devenir ambassadeur ALMA" class="join-action-cta">Postuler</a>
+      </div>
+
+      <div class="join-action observe">
+        <div class="join-action-eyebrow">— 04 —</div>
+        <h3 class="join-action-title">Partager &amp; relayer</h3>
+        <p class="join-action-text">
+          Le geste le plus discret, et peut-être le plus puissant. Partagez le manifeste avec une personne autour de vous qui en aurait besoin. Faites-le exister dans des conversations réelles. Les idées voyagent par contagion.
+        </p>
+        <a href="/manifeste.html" class="join-action-cta">Lire et partager</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-cream">
+  <div class="container">
+    <div class="text-block" style="padding: 0 2rem 2rem;">
+      <h2 style="text-align: center;">Ils nous rejoignent</h2>
+      <p class="lead" style="text-align: center;">
+        Les premières voix qui se réunissent autour d'ALMA.
+      </p>
+    </div>
+
+    <div class="testimonials-placeholder">
+      <p class="testimonials-placeholder-text">
+        Les premières signatures publiques et témoignages seront publiés ici dès que la liste d'attente atteindra ses premiers paliers symboliques. Si vous voulez être parmi les premières voix, écrivez-nous.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="contact-block">
+  <h3>Une autre idée pour rejoindre le mouvement ?</h3>
+  <p>Écrivez-moi directement. Je lis tout, je réponds personnellement.</p>
+  <a href="mailto:hamza@alma.app" class="contact-email">hamza@alma.app</a>
+</div>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div>
+      <div class="footer-brand-mark">ALMA</div>
+      <div class="footer-brand-tag">Quelqu'un, pas quelque chose.</div>
+      <p class="footer-brand-text">L'application de rencontre qui rend les gens à la vie réelle. Lancement Paris 2026.</p>
+    </div>
+    <div>
+      <h4 class="footer-section-title">Découvrir</h4>
+      <div class="footer-links">
+        <a href="/manifeste.html" class="footer-link">Manifeste</a>
+        <a href="/vision.html" class="footer-link">Vision</a>
+        <a href="/produit.html" class="footer-link">Produit</a>
+        <a href="/mouvement.html" class="footer-link">Mouvement</a>
+        <a href="/securite.html" class="footer-link">Sécurité</a>
+        <a href="/fondateur.html" class="footer-link">Fondateur</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="footer-section-title">Contact</h4>
+      <div class="footer-links">
+        <a href="/presse.html" class="footer-link">Presse</a>
+        <a href="/investisseurs.html" class="footer-link">Investisseurs</a>
+        <a href="mailto:hello@alma.app" class="footer-link">hello@alma.app</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="footer-section-title">Suivre</h4>
+      <div class="footer-links">
+        <a href="#" class="footer-link">LinkedIn</a>
+        <a href="#" class="footer-link">Instagram</a>
+        <a href="#" class="footer-link">Newsletter</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-credit">© 2026 ALMA — Tous droits réservés</div>
+    <div class="footer-tagline">— Quelqu'un, pas quelque chose. —</div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

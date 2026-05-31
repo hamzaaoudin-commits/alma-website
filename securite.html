@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sécurité &amp; Confiance — ALMA</title>
+<meta name="description" content="Comment ALMA protège ses utilisatrices et utilisateurs. Vérification, modération, sécurité physique, RGPD. Une approche radicale de la sécurité dans le dating.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/pages.css">
+
+<style>
+.security-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.security-pillar {
+  text-align: center;
+  padding: 2rem;
+}
+
+.security-pillar-icon {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 200;
+  color: var(--burgundy);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.security-pillar-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+
+.security-pillar-text {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.security-measures {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.security-measure {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 2rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+  align-items: start;
+}
+
+.security-measure:last-child {
+  border-bottom: none;
+}
+
+.security-measure-num {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 200;
+  color: var(--burgundy);
+  line-height: 1;
+}
+
+.security-measure-content h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+}
+
+.security-measure-content p {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: 1rem;
+}
+
+.security-measure-content p:last-child {
+  margin-bottom: 0;
+}
+
+.security-measure-content em {
+  font-family: var(--font-italic);
+  font-style: italic;
+  color: var(--burgundy);
+}
+
+.guarantee-block {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.guarantee-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.guarantee-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: var(--cream);
+}
+
+.guarantee-title em {
+  font-family: var(--font-italic);
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.guarantee-text {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--cream);
+  opacity: 0.85;
+}
+
+@media (max-width: 768px) {
+  .security-pillars {
+    grid-template-columns: 1fr;
+  }
+  .security-measure {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo">ALMA</a>
+  <div class="nav-links">
+    <a href="/manifeste.html" class="nav-link">Manifeste</a>
+    <a href="/vision.html" class="nav-link">Vision</a>
+    <a href="/produit.html" class="nav-link">Produit</a>
+    <a href="/mouvement.html" class="nav-link">Mouvement</a>
+    <a href="/securite.html" class="nav-link active">Sécurité</a>
+    <a href="/fondateur.html" class="nav-link">Fondateur</a>
+    <a href="/presse.html" class="nav-link">Presse</a>
+    <a href="/investisseurs.html" class="nav-link">Investisseurs</a>
+    <a href="/#waitlist" class="nav-cta">Rejoindre</a>
+  </div>
+  <button class="nav-mobile-toggle" id="nav-mobile-toggle" aria-label="Menu">☰</button>
+</nav>
+
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <span class="nav-mobile-close" id="nav-mobile-close">×</span>
+  <a href="/manifeste.html" class="nav-link">Manifeste</a>
+  <a href="/vision.html" class="nav-link">Vision</a>
+  <a href="/produit.html" class="nav-link">Produit</a>
+  <a href="/mouvement.html" class="nav-link">Mouvement</a>
+  <a href="/securite.html" class="nav-link">Sécurité</a>
+  <a href="/fondateur.html" class="nav-link">Fondateur</a>
+  <a href="/presse.html" class="nav-link">Presse</a>
+  <a href="/investisseurs.html" class="nav-link">Investisseurs</a>
+  <a href="/#waitlist" class="nav-cta">Rejoindre</a>
+</div>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-eyebrow eyebrow">— Sécurité &amp; Confiance —</div>
+    <h1 class="page-hero-title">
+      Une rencontre numérique <span class="italic">ne devrait jamais mettre en danger.</span>
+    </h1>
+    <p class="page-hero-subtitle">
+      ALMA refuse l'argument selon lequel les abus sont le prix à payer pour l'usage. Voici, concrètement, comment nous protégeons les personnes qui nous font confiance.
+    </p>
+  </div>
+</section>
+
+<div class="text-block">
+  <p class="lead">
+    Soyons clairs sur ce que ce document dit, et ce qu'il ne dit pas. Aucune plateforme ne peut promettre la sécurité absolue. Mais une plateforme peut promettre des engagements concrets, vérifiables, structurels. Et accepter d'être jugée sur ses résultats, pas sur ses intentions.
+  </p>
+
+  <p>
+    Voici ce qu'ALMA fait, dès son premier jour d'ouverture.
+  </p>
+</div>
+
+<section class="section section-cream">
+  <div class="container">
+    <div class="text-block" style="padding: 0 2rem 3rem;">
+      <h2 style="text-align: center;">Trois piliers</h2>
+      <p class="lead" style="text-align: center;">
+        Notre approche s'articule autour de trois principes structurants.
+      </p>
+    </div>
+
+    <div class="security-pillars">
+      <div class="security-pillar observe">
+        <div class="security-pillar-icon">01</div>
+        <h3 class="security-pillar-title">Identité réelle</h3>
+        <p class="security-pillar-text">
+          Aucun anonymat possible. Chaque utilisateur est vérifié avec une pièce d'identité officielle avant de pouvoir interagir. La transparence est la première forme de sécurité.
+        </p>
+      </div>
+      <div class="security-pillar observe">
+        <div class="security-pillar-icon">02</div>
+        <h3 class="security-pillar-title">Modération active</h3>
+        <p class="security-pillar-text">
+          Une IA détecte les comportements problématiques en temps réel. Une équipe humaine examine et tranche. Les comportements graves entraînent un bannissement à vie et une transmission à la justice.
+        </p>
+      </div>
+      <div class="security-pillar observe">
+        <div class="security-pillar-icon">03</div>
+        <h3 class="security-pillar-title">Sécurité physique</h3>
+        <p class="security-pillar-text">
+          La sécurité ne s'arrête pas à l'application. Nous accompagnons les rencontres réelles dans des commerces partenaires formés, avec un bouton SOS géolocalisé activable en permanence.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="text-block" style="padding: 0 2rem 3rem;">
+      <h2 style="text-align: center;">Nos mesures, en détail</h2>
+    </div>
+
+    <div class="security-measures">
+      <div class="security-measure observe">
+        <div class="security-measure-num">01</div>
+        <div class="security-measure-content">
+          <h3>Vérification d'identité obligatoire</h3>
+          <p>
+            Avant de pouvoir interagir avec qui que ce soit, chaque utilisateur fournit une pièce d'identité officielle valide. La vérification est réalisée par un prestataire spécialisé (Onfido ou équivalent), avec validation sous 24 heures.
+          </p>
+          <p>
+            <em>Pourquoi c'est important.</em> Plus de 90% des comportements abusifs sur les apps de rencontre proviennent de comptes anonymes ou faux. La vérification obligatoire élimine cette catégorie entière de menace.
+          </p>
+          <p>
+            <em>Notre engagement sur la vie privée.</em> Les documents d'identité sont supprimés après validation. Seul un hash anonyme est conservé, suffisant pour empêcher la recréation d'un compte banni, mais inutilisable pour identifier la personne.
+          </p>
+        </div>
+      </div>
+
+      <div class="security-measure observe">
+        <div class="security-measure-num">02</div>
+        <div class="security-measure-content">
+          <h3>Modération IA en temps réel</h3>
+          <p>
+            Une intelligence artificielle analyse les conversations en temps réel pour détecter les signaux d'agressivité, de manipulation, de pression sexuelle non sollicitée, ou de comportements inappropriés. Les messages problématiques déclenchent une alerte immédiate.
+          </p>
+          <p>
+            <em>Sans surveiller le contenu intime.</em> L'IA détecte des patterns, pas du contenu. Elle ne lit pas vos conversations comme un humain les lirait. Elle reconnaît des structures comportementales.
+          </p>
+          <p>
+            <em>Avec une supervision humaine.</em> Aucune sanction automatique. Chaque alerte est revue par un modérateur formé, qui décide d'une intervention adaptée : avertissement, suspension, bannissement, signalement aux autorités.
+          </p>
+        </div>
+      </div>
+
+      <div class="security-measure observe">
+        <div class="security-measure-num">03</div>
+        <div class="security-measure-content">
+          <h3>Bouton SOS géolocalisé</h3>
+          <p>
+            Pendant les rencontres physiques organisées via le Pack Rencontre, un bouton SOS reste accessible en permanence dans l'application. Il alerte instantanément ALMA, qui contacte le commerce partenaire et, si nécessaire, les forces de l'ordre.
+          </p>
+          <p>
+            <em>Avec géolocalisation précise.</em> La localisation est transmise automatiquement pour permettre une intervention rapide.
+          </p>
+        </div>
+      </div>
+
+      <div class="security-measure observe">
+        <div class="security-measure-num">04</div>
+        <div class="security-measure-content">
+          <h3>Commerces partenaires formés</h3>
+          <p>
+            Toutes les rencontres physiques organisées via le Pack Rencontre ont lieu dans un réseau de cafés et restaurants partenaires sélectionnés. Le personnel y est formé pour repérer une situation d'inconfort et intervenir discrètement.
+          </p>
+          <p>
+            <em>Vous n'êtes jamais seul·e.</em> Un membre du personnel sait que vous êtes en rendez-vous ALMA. Un signal discret de votre part peut déclencher une intervention.
+          </p>
+        </div>
+      </div>
+
+      <div class="security-measure observe">
+        <div class="security-measure-num">05</div>
+        <div class="security-measure-content">
+          <h3>Bannissement à vie pour comportements graves</h3>
+          <p>
+            Tout comportement violent, harcelant, ou abusif entraîne un bannissement définitif et irréversible. Aucune deuxième chance. Aucune contestation possible pour les cas graves documentés.
+          </p>
+          <p>
+            <em>Avec impossibilité de recréation.</em> Le hash anonyme conservé après vérification d'identité empêche techniquement la création d'un nouveau compte par une personne bannie.
+          </p>
+        </div>
+      </div>
+
+      <div class="security-measure observe">
+        <div class="security-measure-num">06</div>
+        <div class="security-measure-content">
+          <h3>Coopération judiciaire systématique</h3>
+          <p>
+            ALMA coopère immédiatement et entièrement avec les forces de l'ordre françaises pour tout signalement de comportement criminel. Nous ne protégeons pas les agresseurs derrière des protections procédurales.
+          </p>
+          <p>
+            <em>Avec un protocole clair.</em> Toute victime peut demander à ALMA la transmission des preuves conservées sur la plateforme aux autorités, dans le cadre d'une plainte.
+          </p>
+        </div>
+      </div>
+
+      <div class="security-measure observe">
+        <div class="security-measure-num">07</div>
+        <div class="security-measure-content">
+          <h3>Hébergement européen &amp; RGPD</h3>
+          <p>
+            Toutes les données sont hébergées exclusivement dans des serveurs situés en Union européenne. Aucun transfert vers les États-Unis, aucun accès par des juridictions étrangères. Conformité RGPD totale et auditable.
+          </p>
+          <p>
+            <em>Chiffrement de bout en bout.</em> Les conversations sont chiffrées de manière à ce que même ALMA ne puisse pas les lire. Seules les alertes IA peuvent générer un signalement, sans révéler le contenu.
+          </p>
+          <p>
+            <em>Droit à l'effacement en deux clics.</em> Vous pouvez supprimer entièrement votre compte et toutes vos données à tout moment, sans justification, sans délai.
+          </p>
+        </div>
+      </div>
+
+      <div class="security-measure observe">
+        <div class="security-measure-num">08</div>
+        <div class="security-measure-content">
+          <h3>Comité éthique indépendant</h3>
+          <p>
+            Un comité externe composé de sociologues, juristes, psychiatres et professionnels de la sécurité numérique supervise nos pratiques. Ses recommandations sont rendues publiques.
+          </p>
+          <p>
+            <em>Avec un pouvoir réel.</em> Le comité dispose d'un droit de veto sur les décisions structurantes de modération. Son avis est public et opposable.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="guarantee-block">
+  <div class="guarantee-inner">
+    <h2 class="guarantee-title">
+      Notre engagement, en une phrase :
+    </h2>
+    <p class="guarantee-text">
+      <em>Aucune plateforme ne peut promettre une sécurité absolue. ALMA s'engage à faire mieux que toutes celles qui existent aujourd'hui, à le démontrer chiffres en main, et à accepter d'être jugée sur ses résultats.</em>
+    </p>
+  </div>
+</section>
+
+<div class="text-block">
+  <h2>Si quelque chose se passe</h2>
+
+  <p>
+    Si vous êtes utilisateur·rice d'ALMA et qu'un incident survient — agression, harcèlement, menace, manipulation — voici ce que vous devez savoir.
+  </p>
+
+  <p>
+    <strong>1. Vous n'êtes jamais seul·e.</strong> Vous pouvez nous joindre à tout moment via le bouton SOS de l'application, ou par email à <a href="mailto:urgence@alma.app" style="color: var(--burgundy); text-decoration: underline;">urgence@alma.app</a>. Nous répondons sous une heure pour les signalements graves.
+  </p>
+
+  <p>
+    <strong>2. Nous vous croyons.</strong> Notre posture par défaut est de prendre toute déclaration au sérieux et d'agir vite, quitte à corriger après si besoin. Le doute, dans ces situations, profite toujours à la personne qui se signale en premier.
+  </p>
+
+  <p>
+    <strong>3. Nous vous accompagnons.</strong> Pour les situations graves, nous vous aiderons à porter plainte si vous le souhaitez, à conserver les preuves, à trouver un soutien psychologique adapté. Notre équipe Trust &amp; Safety est formée pour ça.
+  </p>
+</div>
+
+<div class="contact-block">
+  <h3>Une question, une suggestion, un signalement ?</h3>
+  <p>
+    Nous lisons tout. Pour les questions générales de sécurité, écrivez-nous. Pour les urgences, utilisez le bouton SOS de l'application.
+  </p>
+  <a href="mailto:safety@alma.app" class="contact-email">safety@alma.app</a>
+</div>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div>
+      <div class="footer-brand-mark">ALMA</div>
+      <div class="footer-brand-tag">Quelqu'un, pas quelque chose.</div>
+      <p class="footer-brand-text">L'application de rencontre qui rend les gens à la vie réelle. Lancement Paris 2026.</p>
+    </div>
+    <div>
+      <h4 class="footer-section-title">Découvrir</h4>
+      <div class="footer-links">
+        <a href="/manifeste.html" class="footer-link">Manifeste</a>
+        <a href="/vision.html" class="footer-link">Vision</a>
+        <a href="/produit.html" class="footer-link">Produit</a>
+        <a href="/mouvement.html" class="footer-link">Mouvement</a>
+        <a href="/securite.html" class="footer-link">Sécurité</a>
+        <a href="/fondateur.html" class="footer-link">Fondateur</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="footer-section-title">Contact</h4>
+      <div class="footer-links">
+        <a href="/presse.html" class="footer-link">Presse</a>
+        <a href="/investisseurs.html" class="footer-link">Investisseurs</a>
+        <a href="mailto:hello@alma.app" class="footer-link">hello@alma.app</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="footer-section-title">Suivre</h4>
+      <div class="footer-links">
+        <a href="#" class="footer-link">LinkedIn</a>
+        <a href="#" class="footer-link">Instagram</a>
+        <a href="#" class="footer-link">Newsletter</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-credit">© 2026 ALMA — Tous droits réservés</div>
+    <div class="footer-tagline">— Quelqu'un, pas quelque chose. —</div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>
