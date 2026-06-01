@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Produit — ALMA</title>
+<meta name="description" content="Le produit ALMA : une expérience structurée autour d'un rituel quotidien, une conversation programmée, et une sortie vers le réel.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/pages.css">
+
+<style>
+/* ============ MAQUETTES VRAIMENT INCRUSTÉES ============ */
+.maquettes-section {
+  background: var(--cream);
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.maquettes-intro {
+  text-align: center;
+  padding: 5rem 2rem 2rem;
+}
+
+.maquettes-embed-frame {
+  width: 100%;
+  border: none;
+  background: var(--cream);
+  display: block;
+  margin: 0;
+  padding: 0;
+  /* Hauteur initiale, sera ajustée dynamiquement par JS */
+  height: 5000px;
+  transition: height 0.3s ease;
+}
+
+/* Pas de scrollbar interne — l'iframe prend la hauteur de son contenu */
+
+/* ============ PROTOTYPE CTA ============ */
+.prototype-cta {
+  background: var(--ink);
+  padding: 5rem 2rem;
+  text-align: center;
+  color: var(--cream);
+}
+
+.prototype-cta-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.prototype-cta-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+
+.prototype-cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: var(--cream);
+}
+
+.prototype-cta-title em {
+  font-family: var(--font-italic);
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.prototype-cta-text {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--cream);
+  opacity: 0.85;
+  margin-bottom: 2.5rem;
+}
+
+.prototype-cta-button {
+  display: inline-block;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  padding: 1.3rem 3rem;
+  font-weight: 600;
+  transition: var(--transition-base);
+  border: 1px solid var(--cream);
+}
+
+.prototype-cta-button:hover {
+  background: var(--gold);
+  color: var(--cream);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo">ALMA</a>
+  <div class="nav-links">
+    <a href="/manifeste.html" class="nav-link">Manifeste</a>
+    <a href="/vision.html" class="nav-link">Vision</a>
+    <a href="/produit.html" class="nav-link active">Produit</a>
+    <a href="/mouvement.html" class="nav-link">Mouvement</a>
+    <a href="/securite.html" class="nav-link">Sécurité</a>
+    <a href="/fondateur.html" class="nav-link">Fondateur</a>
+    <a href="/presse.html" class="nav-link">Presse</a>
+    <a href="/investisseurs.html" class="nav-link">Investisseurs</a>
+    <div class="lang-toggle"><a href="#" class="active" aria-current="page">FR</a><span>·</span><a href="/en/product.html">EN</a></div>
+    <a href="/#waitlist" class="nav-cta">Rejoindre</a>
+  </div>
+  <button class="nav-mobile-toggle" id="nav-mobile-toggle" aria-label="Menu">☰</button>
+</nav>
+
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <span class="nav-mobile-close" id="nav-mobile-close">×</span>
+  <a href="/manifeste.html" class="nav-link">Manifeste</a>
+  <a href="/vision.html" class="nav-link">Vision</a>
+  <a href="/produit.html" class="nav-link">Produit</a>
+  <a href="/mouvement.html" class="nav-link">Mouvement</a>
+    <a href="/securite.html" class="nav-link">Sécurité</a>
+    <a href="/fondateur.html" class="nav-link">Fondateur</a>
+  <a href="/presse.html" class="nav-link">Presse</a>
+  <a href="/investisseurs.html" class="nav-link">Investisseurs</a>
+  <a href="/#waitlist" class="nav-cta">Rejoindre</a>
+</div>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-eyebrow eyebrow">— L'expérience ALMA —</div>
+    <h1 class="page-hero-title">
+      Le produit. <span class="italic">Pensé pour la rencontre</span>, pas pour la captivité.
+    </h1>
+    <p class="page-hero-subtitle">
+      Cinq étapes simples qui transforment une rencontre numérique en lien réel. Et qui vous laissent partir dès que vous avez trouvé.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="text-block" style="padding: 0 2rem 4rem;">
+      <h2>Le parcours utilisateur</h2>
+      <p class="lead">
+        Voici comment se déroule une journée dans ALMA, du moment où vous vous inscrivez jusqu'à la rencontre dans la vraie vie.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card observe">
+        <div class="feature-num">01</div>
+        <h3 class="feature-title">Inscription &amp; vérification</h3>
+        <p class="feature-text">Vous téléchargez l'application, vous créez votre profil, et vous validez votre identité avec une pièce officielle. Validation sous 24 heures. Documents supprimés ensuite, seul un hash anonyme est conservé pour empêcher les recréations de comptes bannis.</p>
+      </div>
+      <div class="feature-card observe">
+        <div class="feature-num">02</div>
+        <h3 class="feature-title">Questionnaire de valeurs</h3>
+        <p class="feature-text">Vous répondez à 30 questions qui explorent ce qui compte vraiment pour vous : rapport à la famille, au travail, à la spiritualité, aux enfants, à la liberté. Ces réponses nourrissent l'algorithme pour vous proposer des personnes avec qui une vraie compatibilité de fond est possible.</p>
+      </div>
+      <div class="feature-card observe">
+        <div class="feature-num">03</div>
+        <h3 class="feature-title">Le rituel quotidien</h3>
+        <p class="feature-text">Chaque jour, à l'heure que vous choisissez (entre 18h et 22h), vous recevez 3 profils sélectionnés pour vous. Ni plus, ni moins. Vous avez 24 heures pour décider d'engager une conversation. Si vous laissez passer, ces profils ne reviendront plus.</p>
+      </div>
+      <div class="feature-card observe">
+        <div class="feature-num">04</div>
+        <h3 class="feature-title">La conversation programmée</h3>
+        <p class="feature-text">Quand deux personnes acceptent de se parler, elles programment ensemble un créneau de 30 minutes. Pas de fil ouvert. Un moment dédié. Une IA veille en temps réel pour détecter les comportements problématiques sans jamais surveiller le contenu intime.</p>
+      </div>
+      <div class="feature-card observe">
+        <div class="feature-num">05</div>
+        <h3 class="feature-title">L'appel &amp; la rencontre réelle</h3>
+        <p class="feature-text">Si la conversation marche, ALMA programme un appel vidéo de 20 minutes le lendemain. Et si l'appel marche, vous pouvez réserver un Pack Rencontre à 19€ dans l'un de nos cafés ou restaurants partenaires parisiens, formés pour veiller discrètement sur votre sécurité.</p>
+      </div>
+      <div class="feature-card observe">
+        <div class="feature-num">06</div>
+        <h3 class="feature-title">Le mode pause couple</h3>
+        <p class="feature-text">Le jour où vous vous mettez en couple, vous activez ensemble un "mode pause" : vos comptes sont gelés pendant 3 à 12 mois, sans paiement. Si la relation tient, c'est notre fierté. Si elle ne tient pas, vous reprenez là où vous vous étiez arrêtés.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MAQUETTES VRAIMENT INCRUSTÉES (iframe sans scrollbar interne) ============ -->
+<section class="maquettes-section">
+  <div class="maquettes-intro">
+    <div class="eyebrow">— Aperçu de l'application —</div>
+    <h2 class="title-section mt-4">
+      18 écrans <span class="italic">pensés au millimètre.</span>
+    </h2>
+    <div class="divider-line"></div>
+    <p class="body-text mt-6" style="max-width: 700px; margin-left: auto; margin-right: auto;">
+      Chaque écran a été conçu pour servir l'attention plutôt que la capturer.
+    </p>
+  </div>
+
+  <iframe id="maquettes-frame" class="maquettes-embed-frame" src="/assets/alma-maquettes.html" title="Maquettes ALMA" scrolling="no"></iframe>
+</section>
+
+<!-- ============ PROTOTYPE CTA ============ -->
+<section class="prototype-cta">
+  <div class="prototype-cta-inner">
+    <div class="prototype-cta-eyebrow">— Prototype interactif —</div>
+    <h2 class="prototype-cta-title">
+      Essayez ALMA <em>avant son lancement.</em>
+    </h2>
+    <p class="prototype-cta-text">
+      Un prototype web entièrement fonctionnel qui vous laisse parcourir l'application comme si elle était installée sur votre téléphone. Conversation simulée, détection IA, parcours complet.
+    </p>
+    <a href="/prototype.html" class="prototype-cta-button">Lancer le prototype →</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container text-center">
+    <div class="eyebrow">— Présentation animée —</div>
+    <h2 class="title-section mt-4">Découvrir ALMA <span class="italic">en deux minutes.</span></h2>
+    <div class="divider-line"></div>
+    <p class="body-text mt-6" style="max-width: 600px; margin-left: auto; margin-right: auto;">
+      Une présentation visuelle qui résume la promesse d'ALMA, le constat, et la solution. À regarder en plein écran.
+    </p>
+    <div class="mt-8">
+      <a href="/assets/alma-presentation.html" class="btn-primary" target="_blank">Lancer la présentation</a>
+    </div>
+  </div>
+</section>
+
+<div class="contact-block">
+  <h3>Envie d'être parmi les premiers à tester ?</h3>
+  <p>Inscrivez-vous sur la liste d'attente. Les premiers utilisateurs auront accès à l'application en exclusivité, avec 12 mois d'abonnement offerts.</p>
+  <a href="/#waitlist" class="btn-primary">Rejoindre la liste d'attente</a>
+</div>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div>
+      <div class="footer-brand-mark">ALMA</div>
+      <div class="footer-brand-tag">Quelqu'un, pas quelque chose.</div>
+      <p class="footer-brand-text">L'application de rencontre qui rend les gens à la vie réelle. Lancement Paris 2026.</p>
+    </div>
+    <div>
+      <h4 class="footer-section-title">Découvrir</h4>
+      <div class="footer-links">
+        <a href="/manifeste.html" class="footer-link">Manifeste</a>
+        <a href="/vision.html" class="footer-link">Vision</a>
+        <a href="/produit.html" class="footer-link">Produit</a>
+        <a href="/mouvement.html" class="footer-link">Mouvement</a>
+        <a href="/securite.html" class="footer-link">Sécurité</a>
+        <a href="/fondateur.html" class="footer-link">Fondateur</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="footer-section-title">Contact</h4>
+      <div class="footer-links">
+        <a href="/presse.html" class="footer-link">Presse</a>
+        <a href="/investisseurs.html" class="footer-link">Investisseurs</a>
+        <a href="mailto:hello@alma.app" class="footer-link">hello@alma.app</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="footer-section-title">Suivre</h4>
+      <div class="footer-links">
+        <a href="#" class="footer-link">LinkedIn</a>
+        <a href="#" class="footer-link">Instagram</a>
+        <a href="#" class="footer-link">Newsletter</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-credit">© 2026 ALMA — Tous droits réservés</div>
+    <div class="footer-tagline">— Quelqu'un, pas quelque chose. —</div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script>
+// Écouter les messages de l'iframe maquettes pour ajuster sa hauteur
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.type === 'maquettes-height' && e.data.height) {
+    var iframe = document.getElementById('maquettes-frame');
+    if (iframe) {
+      iframe.style.height = (e.data.height + 50) + 'px';
+    }
+  }
+});
+</script>
+
+</body>
+</html>
